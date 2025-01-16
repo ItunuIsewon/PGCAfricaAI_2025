@@ -10,7 +10,7 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 + [Prof. Conrad Iyegbe](https://scholar.google.co.uk/citations?user=YyTSNGcAAAAJ&hl=en)
 + [Dr. Itunuoluwa Isewon](https://scholar.google.com/citations?user=haW6Ux8AAAAJ&hl=en)
 
-## Course Overview
+## Workshop Overview
 ### Workshop Timetable
 |**Time**|**Agenda**|**Speakers**|
 |:---:|:---:|:---:|
@@ -25,3 +25,8 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 2:30 PM - 4:30 PM| **Practical Session 2:** Hands-on workshop on the use of generative AI models for AI tasks in human genetics||
 3:30 PM - 4:00 PM| Tea Break||
 4:30 PM - 5:00 PM| Closing Discussions and Review||
+
+
+******
+## License
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.
