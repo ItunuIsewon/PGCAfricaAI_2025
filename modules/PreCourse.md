@@ -26,16 +26,16 @@ This guide provides step-by-step instructions to install Jupyter Notebook and th
   2. **Install Jupyter Notebook**
      + Open the Command Prompt (Open the Run menu with Windows Key + R, then type "cmd." Press Ctrl + Shift + Enter to open as an Administrator)
      + Run the following commands:
-       ```sh
+       ```python
        pip install notebook
        ```
   3. **Verify the installation by running:**
-       ```sh
+       ```python
        jupyter notebook
        ```
   4. **Install Pip (if not already installed)**
      + If pip is not available, run:
-       ```sh
+       ```python
        python -m ensurepip --upgrade
        ```
        
@@ -79,41 +79,38 @@ The libraries required for the workshop include:
   - biopython (optional for advanced genomics tasks)
 
 #### Install Libraries on Windows
-  1.	Open the Command Prompt.
-  2.	Run the following command to install all libraries:
-      ```sh
-      pip install pandas numpy matplotlib seaborn scikit-learn tensorflow  torch biopython
-      ``` 
+1. Open the Command Prompt.
+2. Run the following command to install all libraries:
+   ```python
+     pip install pandas numpy matplotlib seaborn scikit-learn tensorflow  torch biopython
+   ```
 
 #### Install Libraries on Ubuntu
   1. Open a terminal.
   2. Run the following command to install all libraries:
-     
-    ```sh
-    pip3 install pandas numpy matplotlib seaborn scikit-learn tensorflow  torch biopython
-    ```
+     ```python
+       pip3 install pandas numpy matplotlib seaborn scikit-learn tensorflow  torch biopython
+     ```
 
 ### Part 3: Testing the Installation
   1. Open a terminal or Command Prompt.
   2. Start Jupyter Notebook by running:
-     
-    ```sh
-      jupyter notebook
-    ```
+     ```python
+        jupyter notebook
+     ```
   
   4. Create a new Python 3 notebook and run the following code to verify the libraries:
-     
-    ```sh
-     import pandas as pd
-     import numpy as np
-     import matplotlib.pyplot as plt
-     import seaborn as sns
-     import sklearn
-     import tensorflow as tf
-     import torch
-     import Bio
+     ```python
+        import pandas as pd
+        import numpy as np
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        import sklearn
+        import tensorflow as tf
+        import torch
+        import Bio
 
-     print("All libraries are installed successfully!")
+        print("All libraries are installed successfully!")
      ```
      
 ### Part 4: Troubleshooting
@@ -121,15 +118,19 @@ The libraries required for the workshop include:
   - Command not found:
       + Ensure Python and pip are added to the system PATH.
       + Reinstall Python and select the option to "Add Python to PATH."
+        
   - Permission errors (Ubuntu):
     + Use sudo with pip commands.
+      
   - Jupyter Notebook does not open:
     + Clear browser cache or use another browser.
     + Check if the jupyter command is in your PATH by running:
       
-    ```sh
-      which jupyter
+    ```python
+        which jupyter
     ```
+
+You are now ready to use Jupyter Notebook with the required libraries for the workshop!
 
 
 
