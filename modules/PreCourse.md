@@ -20,7 +20,7 @@ After completing this practical, you should be able to do the following:
 This guide provides step-by-step instructions for installing Jupyter Notebook and the required libraries on both Windows and Ubuntu systems.
 
 
-### Part 1: :hammer_and_wrench:  Jupyter Notebook
+### Part 1: ⚙️ Jupyter Notebook
 #### Windows
   1. **Install Python**
      + Download the latest version of Python from the [official website](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe).
@@ -71,7 +71,7 @@ This guide provides step-by-step instructions for installing Jupyter Notebook an
        ```
 
   
-### Part 2: :package: Installing Required Libraries
+### Part 2: 📦 Installing Required Libraries
 The libraries required for the workshop include:
   - pandas
   - numpy
@@ -97,7 +97,7 @@ The libraries required for the workshop include:
      ```
 
 
-### Part 3: :gear: Testing the Installation
+### Part 3: 🔧 Testing the Installation
   1. Open a terminal or Command Prompt.
   2. Start Jupyter Notebook by running:
      ```python
@@ -118,7 +118,7 @@ The libraries required for the workshop include:
         print("All libraries are installed successfully!")
      ```
      
-### Part 4: :hammer_and_wrench: Troubleshooting
+### Part 4: ⚙️ Troubleshooting
 **Common Issues and Fixing**
   - Command not found:
       + Ensure Python and pip are added to the system PATH.
@@ -136,12 +136,15 @@ The libraries required for the workshop include:
     ```
 
 ******
-:white_check_mark: You are now ready to use Jupyter Notebook with the required libraries for the workshop!
+✅ You are now ready to use Jupyter Notebook with the required libraries for the workshop!
+
 
 
 ## Exploratory Data Analysis
 **Dataset: The data for this practical is found in the *data/data.csv* directory.**
+The dataset contains 569 entries with 34 columns, focusing on breast cancer diagnosis and related features. The target variable, diagnosis, indicates whether a tumor is malignant (M) or benign (B). Features include measurements of cell nuclei characteristics, categorized as mean, standard error, and worst values (e.g., radius, texture, and area).
 
+******
 Import the following library
 
 ```python
