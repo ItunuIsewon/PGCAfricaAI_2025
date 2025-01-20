@@ -6,6 +6,7 @@
   2. [Setup](#Setup)
   3. [Exploratory Data Analysis](#Exploratory_Data_Analysis)
 
+
 ## Learning Outcomes
 After completing this practical, you should be able to do the following:
   1. Set up Jupyter Notebook, install essential libraries, and test installations.
@@ -14,8 +15,10 @@ After completing this practical, you should be able to do the following:
   4. Use statistical summaries and visualizations (e.g., histograms, scatter plots, heatmaps).
   5. Learn about feature analysis.
 
+
 ## Setup 
 This guide provides step-by-step instructions for installing Jupyter Notebook and the required libraries on both Windows and Ubuntu systems.
+
 
 ### Part 1: :hammer_and_wrench:  Jupyter Notebook
 #### Windows
