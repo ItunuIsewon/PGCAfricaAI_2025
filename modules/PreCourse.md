@@ -137,7 +137,7 @@ The libraries required for the workshop include:
 
 
 ## Exploratory Data Analysis
-**Dataset: The data for this practical is found in the */data/* directory.**
+**Dataset: The data for this practical is found in the *data/data.csv* directory.**
 
 Import the following library
 
