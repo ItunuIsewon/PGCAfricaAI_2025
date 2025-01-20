@@ -1,6 +1,10 @@
 # PGC Africa AI Workshop
 
+<img src="Images/pgc_logo_website_v3.jpeg" alt="Alt text" width="500">
+
+
 The Africa Working Group of the PGC was formed in July 2022, with 128 members across 18 countries representing both the African continent and Africans working in the diaspora. The focus of the group is on facilitating the equitable immersion of Africa and African researchers into the world of psychiatric genetics.
+
 PGC Africa will be facilitating an A.I workshop during the 15th African Society of Human Genetics and the 1st Ugandan Society of Human Genetics and Bioinformatics Conference.
 
 
