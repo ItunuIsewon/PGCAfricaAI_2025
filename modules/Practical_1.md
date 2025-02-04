@@ -30,27 +30,28 @@ print(clinical_data.head())
 clinical_data.columns
 ```
 
-<details><summary>Output</summary>
+<details>
+  <summary>Output</summary>
 <code>Index(['age', 'sex', 'cohort', 'systolic_BP', 'diastolic_BP', 'LDL_cholesterol', 'HDL_cholesterol', 'height', 'weight', 'BMI', 'waist_circumference', 'hip_circumference', 'WHR'], dtype='object')
 </code>
 </details> 
 
 <details>
-What Are Categorical Variables? Categorical variables are variables that represent discrete categories or labels, rather than numerical values. They can be classified into:
-
-Nominal Variables – Categories with no inherent order (e.g., colours: "Red," "Blue," "Green"). 
-Ordinal Variables – Categories with a meaningful order (e.g., education levels: "High School," "Bachelor’s," "Master’s," "PhD"). 
-Why Convert Categorical Variables to Numerical in Machine Learning? Most machine learning algorithms require numerical input because they rely on mathematical computations like distance calculations, matrix operations, and statistical techniques. 
-Here’s why categorical variables must be converted:
-
-Mathematical Operations – Algorithms like linear regression and support vector machines (SVMs) require numerical input to perform calculations. 
-Distance-Based Algorithms – Models like k-NN and K-Means use Euclidean distance, which only works with numerical values. 
-Gradient-Based Optimization – Neural networks and gradient-boosting methods rely on numerical computations for backpropagation and optimization. 
-Better Model Performance – Encoding categorical variables into meaningful numerical values can improve model interpretability and accuracy. 
-Common Methods to Convert Categorical Variables Label Encoding – Assigns unique integers to categories (e.g., "Red" → 0, "Blue" → 1). 
-One-Hot Encoding – Converts categories into binary columns (e.g., "Red" → [1,0,0], "Blue" → [0,1,0]). 
-Ordinal Encoding – Assigns ordered numerical values to ordinal data (e.g., "Low" → 1, "Medium" → 2, "High" → 3). 
-Target Encoding – Replaces categories with their mean target values, useful in predictive modelling.
+  What Are Categorical Variables? Categorical variables are variables that represent discrete categories or labels,rather than numerical values. They can be classified into:
+    
+  Nominal Variables – Categories with no inherent order (e.g., colours: "Red," "Blue," "Green"). 
+  Ordinal Variables – Categories with a meaningful order (e.g., education levels: "High School," "Bachelor’s," "Master’s," "PhD"). 
+  Why Convert Categorical Variables to Numerical in Machine Learning? Most machine learning algorithms require numerical input because they rely on mathematical computations like distance calculations, matrix operations, and statistical techniques. 
+  
+  **Here’s why categorical variables must be converted:**
+  Mathematical Operations – Algorithms like linear regression and support vector machines (SVMs) require numerical input to perform calculations. 
+  Distance-Based Algorithms – Models like k-NN and K-Means use Euclidean distance, which only works with numerical values. 
+  Gradient-Based Optimization – Neural networks and gradient-boosting methods rely on numerical computations for backpropagation and optimization. 
+  Better Model Performance – Encoding categorical variables into meaningful numerical values can improve model interpretability and accuracy. 
+  Common Methods to Convert Categorical Variables Label Encoding – Assigns unique integers to categories (e.g., "Red" → 0, "Blue" → 1). 
+  One-Hot Encoding – Converts categories into binary columns (e.g., "Red" → [1,0,0], "Blue" → [0,1,0]). 
+  Ordinal Encoding – Assigns ordered numerical values to ordinal data (e.g., "Low" → 1, "Medium" → 2, "High" → 3). 
+  Target Encoding – Replaces categories with their mean target values, useful in predictive modelling.
   
 </details>
 
