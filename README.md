@@ -26,7 +26,7 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 |:---:|:---:|:---:
 8:00 AM - 8:30 AM| Registration| 
 8:45 AM - 9:00 AM| **Opening Remarks:** - Welcome Address and an overview of the day's activities| 
-9:00 AM - 9:45 AM|**Plenary 1:** General introduction to Machine Learning, Artificial Intelligence - Gain a foundational understanding of ML and AI and learn how these technologies are transforming biomedical research| Dr. Itunuoluwa Isewon|
+9:00 AM - 9:45 AM|**Plenary 1:** General introduction to Machine Learning, Artificial Intelligence - Gain a foundational understanding of ML and AI and learn how these technologies are transforming biomedical research| |
 9:45 AM - 10:00 AM| **Q&A and Practical Examples:** - Engage in an interactive session where Dr. Itunu shares real-world applications and answers to your questions|
 10:00 AM – 10:20 AM| Scheduled Break | |
 10:20 AM - 12:15 PM| **Practical Session 1:** Hands-on workshop (Machine Learning) - We will work through a series of exercises together, applying concepts discussed earlier.|
