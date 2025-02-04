@@ -29,10 +29,10 @@ This guide provides step-by-step instructions for installing Jupyter Notebook an
   2. **Install Jupyter Notebook**
      + Open the Command Prompt (Open the Run menu with Windows Key + R, then type "cmd." Press Ctrl + Shift + Enter to open as an Administrator)
      + Run the following commands:
-      
-       <pre>
-         <code> pip install notebook </code>        
-       </pre>
+      ```python
+       pip install notebook </code>
+      ```    
+     
       
   3. **Verify the installation by running:**
        ```python
@@ -156,17 +156,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
-1. pandas is used for data manipulation and analysis, providing DataFrame structures.
-2. numpy is used for numerical operations, especially arrays and mathematical functions.
-3. matplotlib and seaborn are used for data visualization. seaborn builds on matplotlib, offering easier and aesthetically pleasing plots.
+<details>
+  1. pandas is used for data manipulation and analysis, providing DataFrame structures.
+  2. numpy is used for numerical operations, especially arrays and mathematical functions.
+  3. matplotlib and seaborn are used for data visualization. seaborn builds on matplotlib, offering easier and aesthetically pleasing plots.
+</details>
 
 **Note:** Ensure that your "data.csv" file is in your current working directory or you include the directory path to the file.
 
 ```python
 # Importing the dataset
 data = pd.read_csv("data.csv")
-```
-The dataset is read using pandas' read_csv function, which loads CSV files into a data frame.
+ ```
+<details>   
+  The dataset is read using pandas' read_csv function, which loads CSV files into a data frame.
+</details>
 
 ```python
 # Printing the 1st 5 columns
@@ -177,7 +181,9 @@ The first few rows are displayed to get a preview of the data.
 # Display dataset information to understand data types and missing values
 data.info()
 ```
-The info() method provides a concise summary of the data frame, including the number of non-null entries, data types, and memory usage. This is essential for identifying columns with missing values or inappropriate data types.
+<details> 
+  The info() method provides a concise summary of the data frame, including the number of non-null entries, data types, and memory usage. This is essential for identifying columns with missing values or inappropriate data types.
+</details>
 
 ```python
 # get the columns list:
@@ -198,7 +204,9 @@ sns.heatmap(data.isnull(), cbar=False, cmap='viridis')
 plt.title('Missing Data Heatmap')
 plt.show()
 ```
-A heatmap is used to visualize the distribution of missing values in the dataset. The viridis colormap provides a clear representation, with non-missing values shown as one colour (purple) and missing values as another (yellow).
+<details>
+  A heatmap is used to visualize the distribution of missing values in the dataset. The viridis colormap provides a clear representation, with non-missing values shown as one colour (purple) and missing values as another (yellow).
+</details>
 
 ```python
 # Visualizing the distribution of target variable (assuming 'diagnosis' is the target column)
@@ -208,7 +216,9 @@ plt.xlabel('Diagnosis')
 plt.ylabel('Count')
 plt.show()
 ```
-A countplot is used to visualize the distribution of categorical variables. Here, the target variable 'diagnosis' is visualized to show the counts of each class (e.g., benign or malignant). This helps in understanding the class balance in the dataset.
+<details>
+  A countplot is used to visualize the distribution of categorical variables. Here, the target variable 'diagnosis' is visualized to show the counts of each class (e.g., benign or malignant). This helps in understanding the class balance in the dataset.
+  </details>
 
 ```python
 # Save diagnosis into a seperate variable
@@ -230,7 +240,9 @@ sns.heatmap(correlation_matrix, annot=False, cmap='coolwarm')
 plt.title('Correlation Matrix')
 plt.show()
 ```
-The correlation matrix calculates pairwise correlations between numerical features. The heatmap visually represents these correlations, helping identify strongly correlated features, which can be useful for feature selection or elimination.
+<details>
+  The correlation matrix calculates pairwise correlations between numerical features. The heatmap visually represents these correlations, helping identify strongly correlated features, which can be useful for feature selection or elimination.
+</details>
 
 ```
 # Pairplot to visualize relationships between selected features
@@ -239,9 +251,11 @@ sns.pairplot(data[selected_features + ['diagnosis']], hue='diagnosis', palette='
 plt.suptitle('Pairplot of Selected Features', y=1.02)
 plt.show()
 ```
-- A pairplot shows scatterplots and histograms of pairwise feature combinations, grouped by the target variable ('diagnosis'). This helps visualize feature separability and relationships.
-
-- Feature separability refers to the extent to which different categories or classes of a target variable can be distinguished based on the values of one or more features.
+<details>
+  
+  - A pairplot shows scatterplots and histograms of pairwise feature combinations, grouped by the target variable ('diagnosis'). This helps visualize feature separability and relationships.
+  - Feature separability refers to the extent to which different categories or classes of a target variable can be distinguished based on the values of one or more features.
+</details>
 
 **In the context of machine learning and data analysis:**
 
@@ -260,7 +274,9 @@ plt.xlabel('Diagnosis')
 plt.ylabel('Mean Radius')
 plt.show()
 ```
+<details>
 A boxplot is used to compare the distribution of a numerical feature (mean_radius) across categories of the target variable ('diagnosis'). This highlights potential differences in feature values based on diagnosis categories.
+</details>
 
 ```
 melted_data = pd.melt(data,id_vars = "diagnosis",value_vars = ['radius_worst', 'texture_worst', 'perimeter_worst'])
@@ -268,7 +284,9 @@ plt.figure(figsize = (15,10))
 sns.boxplot(x = "variable", y = "value", hue="diagnosis",data= melted_data,palette='Set3')
 plt.show()
 ```
+<details>
 It is possible to plot box plots for multiple features at a time.
+</details>
 
 ```
 # Histogram of a numerical feature to understand its distribution
@@ -279,22 +297,21 @@ plt.xlabel('Mean Area')
 plt.ylabel('Area Mean')
 plt.show()
 ```
-A histogram visualizes the distribution of a numerical feature (mean_area), providing insights into its spread, central tendency, and skewness.
-
-- Spread: Refers to how widely the values of the feature are distributed. A wider spread indicates a more diverse range of values, while a narrow spread shows that the values are closer together.
-
-- Central Tendency: Refers to the "center" of the data distribution, often measured by metrics like mean, median, or mode. The peak of the histogram gives an idea of the most frequent values, which often aligns with the central tendency.
-
-- Skewness: Describes the asymmetry of the distribution. If the tail on the right side (positive values) is longer, the data is positively skewed. If the tail on the left side (negative values) is longer, the data is negatively skewed. A symmetric histogram indicates little or no skewness.
-
-Why These Insights Matter Spread helps identify the range of feature values and whether the data is diverse or concentrated. Central Tendency provides a reference for the "average" value, useful for comparisons. Skewness can highlight potential biases in the data or suggest the need for transformations (e.g., logarithmic) to normalize the data for analysis or modeling.
+<details> 
+  A histogram visualizes the distribution of a numerical feature (mean_area), providing insights into its spread, central tendency, and skewness.
+  - Spread: Refers to how widely the values of the feature are distributed. A wider spread indicates a more diverse range of values, while a narrow spread shows that the values are closer together.
+  - Central Tendency: Refers to the "center" of the data distribution, often measured by metrics like mean, median, or mode. The peak of the histogram gives an idea of the most frequent values, which often aligns with the central tendency.
+  - Skewness: Describes the asymmetry of the distribution. If the tail on the right side (positive values) is longer, the data is positively skewed. If the tail on the left side (negative values) is longer, the data is negatively skewed. A symmetric histogram indicates little or no skewness.
+  
+  Why These Insights Matter Spread helps identify the range of feature values and whether the data is diverse or concentrated. Central Tendency provides a reference for the "average" value, useful for comparisons. Skewness can highlight potential biases in the data or suggest the need for transformations (e.g., logarithmic) to normalize the data for analysis or modelling.
+</details>
 
 ```
 #plot the histograms for each feature:
 features.hist(figsize = (30,30), color = 'skyblue')
 plt.show()
 ```
-An histogram can also be plotted for all features at once.
+A histogram can also be plotted for all features at once.
 
 ```
 # Scatterplot to examine the relationship between two numerical features
@@ -305,9 +322,11 @@ plt.xlabel('Mean Radius')
 plt.ylabel('Mean Texture')
 plt.show()
 ```
-A scatterplot is used to examine the relationship between two numerical features. By adding hue for the diagnosis, the plot shows how the relationship varies across different classes.
 
-The amount of overalap reveals how well these two features would be able to distinguish one class from the other. The lesser the overlap the better.
+<details>
+  A scatterplot is used to examine the relationship between two numerical features. By adding hue for the diagnosis, the plot shows how the relationship varies across different classes.
+  The amount of overlap reveals how well these two features would be able to distinguish one class from the other. The lesser the overlap the better.
+</details>
 
 ```
 # Swarm plot to visualize the spread and clustering of features across categories
@@ -318,7 +337,9 @@ plt.xlabel('Diagnosis')
 plt.ylabel('Mean Area')
 plt.show()
 ```
-A swarm plot provides detailed insights into the distribution and clustering of individual data points across categories, showing variability within each group.
+<details>
+  A swarm plot provides detailed insights into the distribution and clustering of individual data points across categories, showing variability within each group.
+</details>
 
 ```
 # Jointplot to explore the relationship between two features along with their distributions
@@ -326,7 +347,9 @@ sns.jointplot(x='radius_mean', y='perimeter_mean', data=data, hue='diagnosis', k
 plt.suptitle('Jointplot of Mean Radius and Mean Perimeter', y=1.02)
 plt.show()
 ```
+<details>
 A jointplot combines scatterplots with marginal histograms or KDE plots, offering a comprehensive view of the relationship between two variables and their individual distributions.
+</details>
 
 ```
 # Facet Grid for multi-dimensional visualizations
@@ -337,7 +360,9 @@ plt.subplots_adjust(top=0.8)
 g.fig.suptitle('Facet Grid of Mean Texture vs Mean Smoothness by Diagnosis')
 plt.show()
 ```
+<details>
 A Facet Grid splits the data into subplots based on categorical variables, facilitating the exploration of multi-dimensional relationships across subsets of data.
+</details>
 
 ```
 # Violin plot to analyze feature distribution and variability
@@ -348,4 +373,6 @@ plt.xlabel('Diagnosis')
 plt.ylabel('Mean Texture')
 plt.show()
 ```
+<details>
 A violin plot shows the distribution and variability of a numerical feature, combining aspects of a boxplot and KDE. This helps in visualizing density across categories.
+</details>
