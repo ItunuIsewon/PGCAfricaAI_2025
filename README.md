@@ -14,9 +14,7 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 <img src="Images/Trainers collage.png" alt="Alt text" width="500">
 
 ## Teaching Assistants
-+ Emmanuel Alagbe
-+ Faith Adegoke
-
+<img src="Images/Teaching Assts..png" alt="Alt text" width="500">
 
 ******
 ## Workshop Overview
