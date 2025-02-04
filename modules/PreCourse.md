@@ -31,7 +31,7 @@ This guide provides step-by-step instructions for installing Jupyter Notebook an
      + Run the following commands:
       
        <pre>
-           pip install notebook
+         <code> pip install notebook </code>        
        </pre>
       
   3. **Verify the installation by running:**
