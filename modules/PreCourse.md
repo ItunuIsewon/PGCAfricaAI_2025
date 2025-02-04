@@ -30,7 +30,7 @@ This guide provides step-by-step instructions for installing Jupyter Notebook an
      + Open the Command Prompt (Open the Run menu with Windows Key + R, then type "cmd." Press Ctrl + Shift + Enter to open as an Administrator)
      + Run the following commands:
       ```python
-       pip install notebook </code>
+       pip install notebook 
       ```    
      
       
@@ -137,9 +137,8 @@ The libraries required for the workshop include:
         which jupyter
     ```
 
-******
 ✅ You are now ready to use Jupyter Notebook with the required libraries for the workshop!
-
+******
 
 
 ## Exploratory Data Analysis
@@ -157,9 +156,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 <details>
+  
   1. pandas is used for data manipulation and analysis, providing DataFrame structures.
+  
   2. numpy is used for numerical operations, especially arrays and mathematical functions.
+  
   3. matplotlib and seaborn are used for data visualization. seaborn builds on matplotlib, offering easier and aesthetically pleasing plots.
+
 </details>
 
 **Note:** Ensure that your "data.csv" file is in your current working directory or you include the directory path to the file.
@@ -254,7 +257,9 @@ plt.show()
 <details>
   
   - A pairplot shows scatterplots and histograms of pairwise feature combinations, grouped by the target variable ('diagnosis'). This helps visualize feature separability and relationships.
+ 
   - Feature separability refers to the extent to which different categories or classes of a target variable can be distinguished based on the values of one or more features.
+
 </details>
 
 **In the context of machine learning and data analysis:**
@@ -275,7 +280,7 @@ plt.ylabel('Mean Radius')
 plt.show()
 ```
 <details>
-A boxplot is used to compare the distribution of a numerical feature (mean_radius) across categories of the target variable ('diagnosis'). This highlights potential differences in feature values based on diagnosis categories.
+  A boxplot is used to compare the distribution of a numerical feature (mean_radius) across categories of the target variable ('diagnosis'). This highlights potential differences in feature values based on diagnosis categories.
 </details>
 
 ```
@@ -285,7 +290,7 @@ sns.boxplot(x = "variable", y = "value", hue="diagnosis",data= melted_data,palet
 plt.show()
 ```
 <details>
-It is possible to plot box plots for multiple features at a time.
+  It is possible to plot box plots for multiple features at a time.
 </details>
 
 ```
@@ -298,12 +303,17 @@ plt.ylabel('Area Mean')
 plt.show()
 ```
 <details> 
+  
   A histogram visualizes the distribution of a numerical feature (mean_area), providing insights into its spread, central tendency, and skewness.
+  
   - Spread: Refers to how widely the values of the feature are distributed. A wider spread indicates a more diverse range of values, while a narrow spread shows that the values are closer together.
+  
   - Central Tendency: Refers to the "center" of the data distribution, often measured by metrics like mean, median, or mode. The peak of the histogram gives an idea of the most frequent values, which often aligns with the central tendency.
+  
   - Skewness: Describes the asymmetry of the distribution. If the tail on the right side (positive values) is longer, the data is positively skewed. If the tail on the left side (negative values) is longer, the data is negatively skewed. A symmetric histogram indicates little or no skewness.
   
   Why These Insights Matter Spread helps identify the range of feature values and whether the data is diverse or concentrated. Central Tendency provides a reference for the "average" value, useful for comparisons. Skewness can highlight potential biases in the data or suggest the need for transformations (e.g., logarithmic) to normalize the data for analysis or modelling.
+
 </details>
 
 ```
@@ -324,8 +334,10 @@ plt.show()
 ```
 
 <details>
+  
   A scatterplot is used to examine the relationship between two numerical features. By adding hue for the diagnosis, the plot shows how the relationship varies across different classes.
   The amount of overlap reveals how well these two features would be able to distinguish one class from the other. The lesser the overlap the better.
+
 </details>
 
 ```
@@ -338,7 +350,9 @@ plt.ylabel('Mean Area')
 plt.show()
 ```
 <details>
+  
   A swarm plot provides detailed insights into the distribution and clustering of individual data points across categories, showing variability within each group.
+  
 </details>
 
 ```
@@ -348,7 +362,9 @@ plt.suptitle('Jointplot of Mean Radius and Mean Perimeter', y=1.02)
 plt.show()
 ```
 <details>
-A jointplot combines scatterplots with marginal histograms or KDE plots, offering a comprehensive view of the relationship between two variables and their individual distributions.
+  
+  A jointplot combines scatterplots with marginal histograms or KDE plots, offering a comprehensive view of the relationship between two variables and their individual distributions.
+
 </details>
 
 ```
@@ -361,7 +377,9 @@ g.fig.suptitle('Facet Grid of Mean Texture vs Mean Smoothness by Diagnosis')
 plt.show()
 ```
 <details>
-A Facet Grid splits the data into subplots based on categorical variables, facilitating the exploration of multi-dimensional relationships across subsets of data.
+  
+  A Facet Grid splits the data into subplots based on categorical variables, facilitating the exploration of multi-dimensional relationships across subsets of data.
+
 </details>
 
 ```
@@ -374,5 +392,7 @@ plt.ylabel('Mean Texture')
 plt.show()
 ```
 <details>
-A violin plot shows the distribution and variability of a numerical feature, combining aspects of a boxplot and KDE. This helps in visualizing density across categories.
+  
+  A violin plot shows the distribution and variability of a numerical feature, combining aspects of a boxplot and KDE. This helps in visualizing density across categories.
+
 </details>
