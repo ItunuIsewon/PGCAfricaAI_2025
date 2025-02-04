@@ -29,8 +29,12 @@ This guide provides step-by-step instructions for installing Jupyter Notebook an
   2. **Install Jupyter Notebook**
      + Open the Command Prompt (Open the Run menu with Windows Key + R, then type "cmd." Press Ctrl + Shift + Enter to open as an Administrator)
      + Run the following commands:
-       ```python
-       pip install notebook
+      
+       <pre>
+  <code>
+    pip install notebook
+  </code>
+</pre>
       
   3. **Verify the installation by running:**
        ```python
