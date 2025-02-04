@@ -158,9 +158,11 @@ import seaborn as sns
 2. numpy is used for numerical operations, especially arrays and mathematical functions.
 3. matplotlib and seaborn are used for data visualization. seaborn builds on matplotlib, offering easier and aesthetically pleasing plots.
 
+**Note:** Ensure that your "data.csv" file is in your current working directory or you include the directory path to the file.
+
 ```python
 # Importing the dataset
-data = pd.read_csv(r"C:\Users\Faithgokz\Desktop\PGC_Africa\data.csv")
+data = pd.read_csv("data.csv")
 ```
 The dataset is read using pandas' read_csv function, which loads CSV files into a data frame.
 
