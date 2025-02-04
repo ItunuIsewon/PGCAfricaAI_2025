@@ -1,5 +1,6 @@
 # PGC Africa AI Workshop
 
+
 <img src="Images/Logo collage.png" alt="Alt text" width="500">
 
 
