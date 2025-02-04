@@ -4,3 +4,5 @@ plugins:
 
 title: [PGC Africa AI Workshop 2025]
 description: [Course manual site for the 2025 PGC Africa AI workshop]
+markdown: kramdown
+highlighter: rouge
