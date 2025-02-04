@@ -44,8 +44,8 @@ clinical_data.columns
   Why Convert Categorical Variables to Numerical in Machine Learning? Most machine learning algorithms require numerical input because they rely on mathematical computations like distance calculations, matrix operations, and statistical techniques. 
   
   **Here’s why categorical variables must be converted:**
-  Mathematical Operations – Algorithms like linear regression and support vector machines (SVMs) require numerical input to perform calculations. 
-  Distance-Based Algorithms – Models like k-NN and K-Means use Euclidean distance, which only works with numerical values. 
+    **Mathematical Operations** – Algorithms like linear regression and support vector machines (SVMs) require numerical input to perform calculations. 
+    **Distance-Based Algorithms** – Models like k-NN and K-Means use Euclidean distance, which only works with numerical values. 
   Gradient-Based Optimization – Neural networks and gradient-boosting methods rely on numerical computations for backpropagation and optimization. 
   Better Model Performance – Encoding categorical variables into meaningful numerical values can improve model interpretability and accuracy. 
   Common Methods to Convert Categorical Variables Label Encoding – Assigns unique integers to categories (e.g., "Red" → 0, "Blue" → 1). 
