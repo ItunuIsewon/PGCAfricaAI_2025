@@ -3,8 +3,8 @@
 ## Dataset Overview
 This synthetic dataset consists of 1,000 simulated individuals with a combination of demographic, clinical, and 
 genomic features relevant to population genetics and association studies. 
-It contains 1,013 variables, including age, sex, and cohort information, which represent different population groups. 
-Clinical data include measurements such as systolic and diastolic blood pressure, LDL and HDL cholesterol levels, height, weight, and body mass index
+It contains 1,013 variables, including age, sex, and cohort information, representing different population groups. 
+Clinical data include measurements such as systolic and diastolic blood pressure, LDL and HDL cholesterol levels, height, weight, and body mass index.
 
 ******
 ```python
@@ -37,21 +37,24 @@ clinical_data.columns
 </details> 
 
 <details>
-  What Are Categorical Variables? Categorical variables are variables that represent discrete categories or labels,rather than numerical values. They can be classified into:
+What Are Categorical Variables? Categorical variables represent discrete categories or labels, rather than numerical values. They can be classified into:
     
-  Nominal Variables – Categories with no inherent order (e.g., colours: "Red," "Blue," "Green"). 
-  Ordinal Variables – Categories with a meaningful order (e.g., education levels: "High School," "Bachelor’s," "Master’s," "PhD"). 
-  Why Convert Categorical Variables to Numerical in Machine Learning? Most machine learning algorithms require numerical input because they rely on mathematical computations like distance calculations, matrix operations, and statistical techniques. 
+1. **Nominal Variables** – Categories with no inherent order (e.g., colours: "Red," "Blue," "Green").
+2. **Ordinal Variables** – Categories with a meaningful order (e.g., education levels: "High School," "Bachelor’s," "Master’s," "PhD"). 
+
+Why Convert Categorical Variables to Numerical in Machine Learning? Most machine learning algorithms require numerical input because they rely on mathematical computations like distance calculations, matrix operations, and statistical techniques. 
   
-  **Here’s why categorical variables must be converted:**
-    **Mathematical Operations** – Algorithms like linear regression and support vector machines (SVMs) require numerical input to perform calculations. 
-    **Distance-Based Algorithms** – Models like k-NN and K-Means use Euclidean distance, which only works with numerical values. 
-  Gradient-Based Optimization – Neural networks and gradient-boosting methods rely on numerical computations for backpropagation and optimization. 
-  Better Model Performance – Encoding categorical variables into meaningful numerical values can improve model interpretability and accuracy. 
-  Common Methods to Convert Categorical Variables Label Encoding – Assigns unique integers to categories (e.g., "Red" → 0, "Blue" → 1). 
-  One-Hot Encoding – Converts categories into binary columns (e.g., "Red" → [1,0,0], "Blue" → [0,1,0]). 
-  Ordinal Encoding – Assigns ordered numerical values to ordinal data (e.g., "Low" → 1, "Medium" → 2, "High" → 3). 
-  Target Encoding – Replaces categories with their mean target values, useful in predictive modelling.
+**Here’s why categorical variables must be converted:**
++ **Mathematical Operations** – Algorithms like linear regression and support vector machines (SVMs) require numerical input to perform calculations.
++ **Distance-Based Algorithms** – Models like k-NN and K-Means use Euclidean distance, which only works with numerical values.
++ **Gradient-Based Optimization** – Neural networks and gradient-boosting methods rely on numerical computations for backpropagation and optimization.
++ **Better Model Performance** – Encoding categorical variables into meaningful numerical values can improve model interpretability and accuracy. 
+
+Common Methods to Convert Categorical Variables 
+- **Label Encoding** – Assigns unique integers to categories (e.g., "Red" → 0, "Blue" → 1). 
+- **One-Hot Encoding** – Converts categories into binary columns (e.g., "Red" → [1,0,0], "Blue" → [0,1,0]).
+- **Ordinal Encoding** – Assigns ordered numerical values to ordinal data (e.g., "Low" → 1, "Medium" → 2, "High" → 3).
+- **Target Encoding** – Replaces categories with their mean target values, useful in predictive modelling.
   
 </details>
 
@@ -60,8 +63,8 @@ clinical_data.columns
 clinical_data.loc[:, 'sex'] = clinical_data['sex'].map({'Female': 0, 'Male': 1})
 clinical_data.loc[:, 'cohort'] = clinical_data['cohort'].map({'Ugandan': 0, 'Zulu': 1})
 ```
-<details><summary> Standardize the Features: </summary>
-Why Do We Standardize Data?
+
+<details><summary> Why Do We Standardize Data?: </summary>
 Standardization is a common preprocessing step in machine learning and data analysis. It involves scaling the data to have a specific mean and variance. Specifically, we aim to make the features have a mean of 0 and a standard deviation of 
 
 The primary reasons for standardizing data are:
@@ -69,13 +72,11 @@ The primary reasons for standardizing data are:
 **1. Improves Model Performance:**
 
 Many machine learning algorithms, especially those based on distance metrics (e.g., K-Nearest Neighbors, Support Vector Machines) or optimization algorithms (e.g., gradient descent in Logistic Regression, Neural Networks), work better when the features have similar scales.
-
 Without standardization, features with larger ranges (e.g., weight in kg vs. age in years) can dominate the learning process and lead to biased or poor performance.
 
 **2. Ensures Equal Weight:**
 
 Standardizing ensures that all features contribute equally to the model. If one feature has a much larger scale (like income in thousands of dollars vs. age in years), the model might give more importance to that feature simply because of its magnitude.
-
 Standardization removes this bias by transforming the features to a comparable scale.
 
 **3. Stabilizes Gradient Descent:**
@@ -113,11 +114,11 @@ Principal Component Analysis (PCA) is a dimensionality reduction technique used 
 
 
 **How PCA Works**
-**Standardization** – The data is standardized (zero mean, unit variance) to ensure all features contribute equally.
-**Covariance Matrix Computation** – The relationships between features are analyzed using a covariance matrix.
-**Eigenvalue & Eigenvector Computation** – The principal components (new axes) are determined from eigenvectors of the covariance matrix.
-**Selecting Principal Components** – Components are ranked based on their explained variance, and only the most important ones are retained.
-**Transformation** – The original data is projected onto the selected principal components.
++ **Standardization** – The data is standardized (zero mean, unit variance) to ensure all features contribute equally.
++ **Covariance Matrix Computation** – The relationships between features are analyzed using a covariance matrix.
++ **Eigenvalue & Eigenvector Computation** – The principal components (new axes) are determined from eigenvectors of the covariance matrix.
++ **Selecting Principal Components** – Components are ranked based on their explained variance, and only the most important ones are retained.
++ **Transformation** – The original data is projected onto the selected principal components.
 
 </details>
 
@@ -126,14 +127,8 @@ Principal Component Analysis (PCA) is a dimensionality reduction technique used 
 pca = PCA()
 pca.fit(scaled_data)
 ```
-<details><summary>Output:</summary>
-PCA()
-In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook.
-On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.
-</details>
 
 <details><summary>  Cumulative Variance in PCA</summary>
-  
 Cumulative variance explains how much of the total variance in the dataset is retained when selecting a given number of principal components.
 
 **Why Is Cumulative Variance Important?**
@@ -141,8 +136,8 @@ It helps determine how many principal components to keep for a good balance betw
 Usually, we select the smallest number of components that explain a high percentage (e.g., 95%) of the variance.
 
 **How to Calculate Cumulative Variance**
-Compute the explained variance ratio for each principal component.
-Compute the cumulative sum of these explained variance ratios
+1. Compute the explained variance ratio for each principal component.
+2. Compute the cumulative sum of these explained variance ratios
 </details>
 
 ```python
@@ -153,6 +148,7 @@ cumulative_variance = np.cumsum(pca.explained_variance_ratio_)
 for i, variance in enumerate(cumulative_variance, start=1):
     print(f"Principal Component {i}: {variance:.4f}")
 ```
+
 <details><summary>Output:</summary>
 Principal Component 1: 0.2629
 Principal Component 2: 0.5023
@@ -179,8 +175,8 @@ plt.ylabel('Cumulative Variance Explained')
 plt.grid(True)
 plt.show()
 ```
-What threshold should do you think is appropriate for choosing principal components?
 
+What threshold should do you think is appropriate for choosing principal components?
 A useful information PCA gives is the number of clusters(groups) that are in the data
 
 ```python
@@ -242,32 +238,32 @@ Interpretation: A high loading (positive or negative) means that the variable st
 Range: Typically between -1 and 1 (when using correlation-based PCA).
 
 **Why Are Loadings Important?**
-**Feature Interpretation** – Helps understand which variables are most influential in forming each principal component.
-**Dimensionality Reduction** – Identifies which features contribute the most, allowing for variable selection.
-**Pattern Discovery** – Reveals relationships between variables by clustering correlated features in the same principal component.
-**Visualization** – Loadings are used in biplots, where both original variables and principal component scores are plotted together.
+1. **Feature Interpretation** – Helps understand which variables are most influential in forming each principal component.
+2. **Dimensionality Reduction** – Identifies which features contribute the most, allowing for variable selection.
+3. **Pattern Discovery** – Reveals relationships between variables by clustering correlated features in the same principal component.
+4. **Visualization** – Loadings are used in biplots, where both original variables and principal component scores are plotted together.
 
 **What Information Do PCA Loadings Provide?**
-**Correlation Between Variables and PCs** – Loadings indicate how much each original feature is correlated with the new principal components.
-**Direction of Influence** – Positive or negative loadings show whether variables move together or in opposite directions.
-**Grouping of Variables** – Variables with similar high loadings on a component are likely related.
+1. **Correlation Between Variables and PCs** – Loadings indicate how much each original feature is correlated with the new principal components.
+2. **Direction of Influence** – Positive or negative loadings show whether variables move together or in opposite directions.
+3. **Grouping of Variables** – Variables with similar high loadings on a component are likely related.
 
 **How Are PCA Loadings Used in a Biological Context?**
 In biology and bioinformatics, PCA loadings can help:
 
-**Genomics & Transcriptomics**
++ **Genomics & Transcriptomics**
 Identifying genes or proteins that contribute most to biological variation.
 Discovering gene expression patterns that differentiate disease vs. healthy states.
 
-**Metabolomics & Proteomics**
++ **Metabolomics & Proteomics**
 Finding key metabolites or proteins that explain differences between samples (e.g., healthy vs. diseased).
 Identifying biomarkers for diagnostics.
 
-**Ecology & Evolutionary Biology**
++ **Ecology & Evolutionary Biology**
 Grouping species or populations based on traits and genetic markers.
 Understanding the impact of environmental variables on species distribution.
 
-**Medical Research**
++ **Medical Research**
 PCA loadings can reveal biological pathways most affected by diseases.
 Helps in drug discovery by identifying the most important biochemical features.
 
@@ -308,7 +304,6 @@ Clustering algorithms partition the data into groups or clusters such that data 
 **K-means Clustering:** K-means is a popular centroid-based clustering algorithm. It partitions the data into K clusters by iteratively assigning data points to the nearest cluster centroid and updating the centroids based on the mean of data points assigned to each cluster. 
 [sklearn.cluster.KMeans](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
 
-
 </details>
 
 ```python
@@ -325,23 +320,25 @@ clinical_data.loc[:, 'cluster'] = kmeans.fit_predict(scaled_data)
 ```python
 clinical_data['cluster'].value_counts()
 ```
+
 ```python
 clinical_data
 ```
+
 <details><summary>Why Do We Need Cluster Profiles?</summary>
 
 A cluster profile helps summarize and interpret the characteristics of each cluster after performing clustering (e.g., K-Means, Hierarchical, DBSCAN). It provides meaningful insights into the underlying patterns within the data.
 
 **Key Reasons for Creating Cluster Profiles**
-**Understanding Cluster Characteristics**
+1. **Understanding Cluster Characteristics**
 Helps determine what makes each cluster distinct by computing summary statistics (e.g., mean, median) for each feature.
 **Example: **In a medical dataset, clusters may represent different patient groups based on clinical parameters.
 
-**Feature Importance in Clustering**
+2. **Feature Importance in Clustering**
 Identifies which features contribute the most to the formation of clusters.
 **Example:** If one cluster has high cholesterol levels, it might indicate high-risk patients.
 
-**Cluster Interpretation & Labeling**
+3. **Cluster Interpretation & Labeling**
 Instead of just numerical cluster labels (0, 1, 2…), profiles help describe each cluster in a meaningful way.
 **Example:**
 Cluster 0 → "Young & Healthy"
@@ -383,7 +380,6 @@ plt.show()
 Can you identify unique patterns in the clusters based on these cluster profiles
 
 ```python
-
 clinical_data = clinical_data.copy()
 # Add PCA components to dataframe
 clinical_data.loc[:,'PC1'] = pc1
@@ -397,10 +393,9 @@ plt.legend(title='Cluster')
 plt.show()
 ```
 
-<details><summary>Classification in Machine Learning</summary>
-
+<details>
+**Classification in Machine Learning**
 Classification is a type of supervised learning where the goal is to predict the category or class that a given input belongs to, based on patterns learned from labeled data. The output variable (target) is categorical, which means it can take one of a limited number of distinct values (e.g., "spam" or "not spam," "disease" or "no disease").
-
 
 **Training and Test Datasets**
 When building a machine learning model, the data is typically split into two parts: training and test datasets.
@@ -420,19 +415,20 @@ A typical practice is to split the data into training and test sets, with 70-80%
 Random Forest is a powerful ensemble learning algorithm used for both classification and regression tasks. It builds multiple decision trees during training and combines their outputs to improve accuracy and control overfitting. Here’s how it works:
 
 **How Random Forest Works:**
-**1. Bootstrap Sampling:**
-The model randomly samples the training data with replacement to create multiple subsets of the data (bootstrap samples).
-Each decision tree in the forest is trained on a different subset of the data.
 
-**2. Building Decision Trees:**
+1. **Bootstrap Sampling:**
+The model randomly samples the training data with replacement to create multiple subsets of the data (bootstrap samples). Each decision tree in the forest is trained on a different subset of the data.
+
+2. **Building Decision Trees:**
 For each sample, a decision tree is built. Each node in the tree splits the data based on the most informative feature.
 During tree construction, random subsets of features are considered for splitting each node (instead of considering all features), which introduces diversity among trees and reduces correlation between them.
 
-**3. Voting for Classification:**
+3. **Voting for Classification:**
 Once all the trees are trained, for a new input, each tree in the forest makes a prediction (classification decision).
 The final prediction is made by taking the majority vote of all the individual tree predictions.
 
 **Advantages of Random Forest:**
+
 **1. Reduces Overfitting:** Because it averages the predictions from many trees, it reduces the risk of overfitting that might happen with a single decision tree.
 
 **2. Handles Large Datasets:** Random Forests can handle large datasets with higher dimensionality (many features).
@@ -443,15 +439,16 @@ The final prediction is made by taking the majority vote of all the individual t
 
 
 **Limitations:**
+
 **1. Interpretability:** Random Forests are often considered a "black-box" model, meaning it's harder to interpret how the final decision is made.
 **2. Computational Complexity:** Random Forest can be computationally intensive because it involves building multiple decision trees.
 
 </details>
 
-<details><summary>Understanding 0-1-2 SNP Data Encoding in Genetics</summary>
-
+<details>
+**Understanding 0-1-2 SNP Data Encoding in Genetics** 
+  
 In genomic studies, single nucleotide polymorphisms (SNPs) are variations in a single nucleotide (A, T, C, or G) at a specific position in the genome. The 0-1-2 encoding is a numerical representation of SNP genotypes that simplifies their use in statistical and machine learning models.
-
 Each individual has two copies of each chromosome (one from each parent), meaning they inherit two alleles at every SNP position. The 0-1-2 encoding is based on the number of copies of a specific minor allele (the less frequent allele in the population):
 
 📌 **Example SNP Genotype Encoding**
@@ -522,31 +519,33 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 ```
 
-<details><summary>Evaluation Metrics</summary>
-
-1. Model Accuracy: 0.8400
+<details>
+  
+**Evaluation Metrics**
+**1. Model Accuracy:** 0.8400
 Accuracy indicates that the model correctly classified 84% of all instances across the 4 classes. This is a solid result, but depending on the dataset and problem, you may want to focus more on precision, recall, and F1-scores (especially if the classes are imbalanced).
-2. Classification Report
+
+**2. Classification Report**
 The classification report gives a more detailed view of your model’s performance for each class.
 
-Precision: The percentage of correct positive predictions out of all positive predictions for that class.
-
+**Precision:** The percentage of correct positive predictions out of all positive predictions for that class.
 Class 0: 83% of the predictions that were labeled as Class 0 were correct.
 Class 1: 97% of the predictions for Class 1 were correct, but the model struggles with recall.
 Class 2: Perfect prediction (100% precision and recall), indicating your model is excellent at identifying Class 2.
 Class 3: The precision of 67% means the model sometimes incorrectly predicts Class 3.
-Recall: The percentage of actual instances of each class that were correctly predicted.
 
+**Recall:** The percentage of actual instances of each class that were correctly predicted.
 Class 1 has a lower recall (69%), meaning the model misses a fair number of Class 1 samples.
 Class 3 has a recall of 89%, indicating the model does a good job of identifying Class 3.
-F1-Score: The harmonic mean of precision and recall. It balances the two metrics, making it useful when precision and recall are imbalanced.
 
+
+**F1-Score:** The harmonic mean of precision and recall. It balances the two metrics, making it useful when precision and recall are imbalanced.
 Class 2 has the highest F1 score (1.00), indicating near-perfect performance.
 Class 1 and Class 0 have balanced F1-scores (~0.80), which suggests a trade-off between precision and recall.
 Class 3 has a moderate F1-score (0.76), which could benefit from more tuning.
-3. Confusion Matrix
-The confusion matrix shows the actual vs. predicted class counts, which can help further interpret the performance:
 
+**3. Confusion Matrix**
+The confusion matrix shows the actual vs. predicted class counts, which can help further interpret the performance:
 Row 0 (Actual Class 0):
 40 instances were correctly predicted as Class 0.
 12 instances were misclassified as Class 3.
@@ -560,8 +559,9 @@ Row 3 (Actual Class 3):
 5 instances were misclassified as Class 0, and 1 as Class 1.
 </details>
 
-<details><summary>What is Hyperparameter Tuning?</summary>
+<details>
 
+  **What is Hyperparameter Tuning?**
   Hyperparameter tuning is the process of optimizing the hyperparameters of a machine learning model to improve its performance. Unlike parameters (which are learned from data, such as weights in neural networks), hyperparameters are set manually before training begins.
 
 **Why do we need hyperparameter tuning?**
@@ -640,9 +640,10 @@ How does the new result compare to the result before hyperparameter tuning
 #!pip install numba==0.52.0rc2
 ```
 
-<details><summary>Explainable AI (XAI) & SHAP</summary>
+<details>
+  
+  **Explainable AI (XAI) & SHAP**
 Explainable AI (XAI) refers to techniques and tools that help us understand and interpret machine learning models. While many ML models (e.g., deep learning, ensemble methods) are often considered "black boxes," XAI methods provide insights into how models make predictions.
-
 One of the most powerful XAI techniques is SHAP (SHapley Additive exPlanations), which is based on game theory and helps explain how each feature contributes to a model's prediction.
 
 
