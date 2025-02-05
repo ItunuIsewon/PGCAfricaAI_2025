@@ -11,10 +11,10 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 
 ******
 ## Trainers
-<img src="Images/Trainers collage.png" alt="Alt text" width="500">
+<img src="Images/trainers new collage.png" alt="Alt text" width="500">
 
 ## Teaching Assistants
-<img src="Images/Teaching Assts..png" alt="Alt text" width="500">
+<img src="Images/Teaching Assts New.png" alt="Alt text" width="500">
 
 ******
 ## Workshop Overview
