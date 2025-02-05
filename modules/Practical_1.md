@@ -31,26 +31,34 @@ clinical_data.columns
 ```
 
 <details>
-  <summary>Output</summary>
+  
+  **Output:**
+  
 <code>Index(['age', 'sex', 'cohort', 'systolic_BP', 'diastolic_BP', 'LDL_cholesterol', 'HDL_cholesterol', 'height', 'weight', 'BMI', 'waist_circumference', 'hip_circumference', 'WHR'], dtype='object')
 </code>
+
 </details> 
 
 <details>
-What Are Categorical Variables? Categorical variables represent discrete categories or labels, rather than numerical values. They can be classified into:
+
+  **What Are Categorical Variables?**
+  
+Categorical variables represent discrete categories or labels, rather than numerical values. They can be classified into:
     
 1. **Nominal Variables** – Categories with no inherent order (e.g., colours: "Red," "Blue," "Green").
 2. **Ordinal Variables** – Categories with a meaningful order (e.g., education levels: "High School," "Bachelor’s," "Master’s," "PhD"). 
 
-Why Convert Categorical Variables to Numerical in Machine Learning? Most machine learning algorithms require numerical input because they rely on mathematical computations like distance calculations, matrix operations, and statistical techniques. 
+**Why Convert Categorical Variables to Numerical in Machine Learning?** Most machine learning algorithms require numerical input because they rely on mathematical computations like distance calculations, matrix operations, and statistical techniques. 
   
 **Here’s why categorical variables must be converted:**
+
 + **Mathematical Operations** – Algorithms like linear regression and support vector machines (SVMs) require numerical input to perform calculations.
 + **Distance-Based Algorithms** – Models like k-NN and K-Means use Euclidean distance, which only works with numerical values.
 + **Gradient-Based Optimization** – Neural networks and gradient-boosting methods rely on numerical computations for backpropagation and optimization.
 + **Better Model Performance** – Encoding categorical variables into meaningful numerical values can improve model interpretability and accuracy. 
 
 Common Methods to Convert Categorical Variables 
+
 - **Label Encoding** – Assigns unique integers to categories (e.g., "Red" → 0, "Blue" → 1). 
 - **One-Hot Encoding** – Converts categories into binary columns (e.g., "Red" → [1,0,0], "Blue" → [0,1,0]).
 - **Ordinal Encoding** – Assigns ordered numerical values to ordinal data (e.g., "Low" → 1, "Medium" → 2, "High" → 3).
@@ -64,10 +72,13 @@ clinical_data.loc[:, 'sex'] = clinical_data['sex'].map({'Female': 0, 'Male': 1})
 clinical_data.loc[:, 'cohort'] = clinical_data['cohort'].map({'Ugandan': 0, 'Zulu': 1})
 ```
 
-<details><summary> Why Do We Standardize Data?: </summary>
+<details>
+
+  **Why Do We Standardize Data?**
+  
 Standardization is a common preprocessing step in machine learning and data analysis. It involves scaling the data to have a specific mean and variance. Specifically, we aim to make the features have a mean of 0 and a standard deviation of 
 
-The primary reasons for standardizing data are:
+**The primary reasons for standardizing data are:**
 
 **1. Improves Model Performance:**
 
@@ -88,6 +99,7 @@ Gradient-based algorithms (e.g., Logistic Regression, Neural Networks) perform b
 Some machine learning models (e.g., Linear Regression, PCA, SVMs) assume that the data is centered around 0 with unit variance. Standardization ensures this assumption holds.
 
 **What Does the StandardScaler Do?**
+
 The StandardScaler from sklearn.preprocessing standardizes the data by transforming each feature so that it has:
 
 Mean = 0
@@ -97,6 +109,8 @@ Mathematically, for each feature 𝑥(column) in the dataset:
 1. Calculate the Mean
 2. Calculate the Standard Deviation
 3. Transform Each Value
+
+   
 for more information visit [standard_scaler](https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html), [geeks4geeks](https://www.geeksforgeeks.org/what-is-standardscaler/)
   
 </details>
@@ -107,13 +121,17 @@ scaler = StandardScaler()
 scaled_data = scaler.fit_transform(clinical_data)
 ```
 
-<details><summary>Principal Component Analysis (PCA) </summary>
+<details>
+
+  **Principal Component Analysis (PCA)**
+  
 Principal Component Analysis (PCA) is a dimensionality reduction technique used in machine learning and statistics. It transforms high-dimensional data into a lower-dimensional space while preserving as much variance (information) as possible. 
 
 **PCA helps in:** Reducing computational complexity, Removing multicollinearity and Improving visualization of high-dimensional data.
 
 
 **How PCA Works**
+
 + **Standardization** – The data is standardized (zero mean, unit variance) to ensure all features contribute equally.
 + **Covariance Matrix Computation** – The relationships between features are analyzed using a covariance matrix.
 + **Eigenvalue & Eigenvector Computation** – The principal components (new axes) are determined from eigenvectors of the covariance matrix.
@@ -128,16 +146,22 @@ pca = PCA()
 pca.fit(scaled_data)
 ```
 
-<details><summary>  Cumulative Variance in PCA</summary>
+<details>
+  
+  **Cumulative Variance in PCA**
+  
 Cumulative variance explains how much of the total variance in the dataset is retained when selecting a given number of principal components.
 
 **Why Is Cumulative Variance Important?**
+
 It helps determine how many principal components to keep for a good balance between dimensionality reduction and data retention.
 Usually, we select the smallest number of components that explain a high percentage (e.g., 95%) of the variance.
 
 **How to Calculate Cumulative Variance**
+
 1. Compute the explained variance ratio for each principal component.
 2. Compute the cumulative sum of these explained variance ratios
+   
 </details>
 
 ```python
@@ -149,7 +173,10 @@ for i, variance in enumerate(cumulative_variance, start=1):
     print(f"Principal Component {i}: {variance:.4f}")
 ```
 
-<details><summary>Output:</summary>
+<details>
+  
+  **Output:**
+
 Principal Component 1: 0.2629
 Principal Component 2: 0.5023
 Principal Component 3: 0.6124
@@ -163,6 +190,7 @@ Principal Component 10: 0.9971
 Principal Component 11: 0.9994
 Principal Component 12: 0.9999
 Principal Component 13: 1.0000
+
 </details>
 
 ```python
@@ -229,26 +257,30 @@ plt.colorbar(scatter, label='Cohort')
 plt.show()
 ```
 
-<details><summary>Loadings in PCA </summary>
+<details>
   
-In Principal Component Analysis (PCA), **loadings** represent how strongly each original variable contributes to a given principal component (PC).
-
+  **Loadings in PCA**
+  In Principal Component Analysis (PCA), **loadings** represent how strongly each original variable contributes to a given principal component (PC).
 Mathematically, loadings are the coefficients of the eigenvectors of the covariance or correlation matrix.
 Interpretation: A high loading (positive or negative) means that the variable strongly influences that principal component.
 Range: Typically between -1 and 1 (when using correlation-based PCA).
 
 **Why Are Loadings Important?**
+
 1. **Feature Interpretation** – Helps understand which variables are most influential in forming each principal component.
 2. **Dimensionality Reduction** – Identifies which features contribute the most, allowing for variable selection.
 3. **Pattern Discovery** – Reveals relationships between variables by clustering correlated features in the same principal component.
 4. **Visualization** – Loadings are used in biplots, where both original variables and principal component scores are plotted together.
 
 **What Information Do PCA Loadings Provide?**
+
 1. **Correlation Between Variables and PCs** – Loadings indicate how much each original feature is correlated with the new principal components.
 2. **Direction of Influence** – Positive or negative loadings show whether variables move together or in opposite directions.
 3. **Grouping of Variables** – Variables with similar high loadings on a component are likely related.
 
+
 **How Are PCA Loadings Used in a Biological Context?**
+
 In biology and bioinformatics, PCA loadings can help:
 
 + **Genomics & Transcriptomics**
@@ -295,8 +327,9 @@ plt.ylabel('Variables')
 plt.show()
 ```
 
-<details><summary>PCA PLOT</summary>
-From our PCA plot, we know that there are four clusters, however, we do not know what group each individual falls into. clustering algorithms can enable us to assign individuals to groups.
+<details>
+  
+  From the PCA plot, we know that there are four clusters, however, we do not know what group each individual falls into. clustering algorithms can enable us to assign individuals to groups.
 
 Clustering is a type of unsupervised learning technique used to group data points or objects based on their similarity. The goal of clustering is to identify inherent patterns or structures in the data without prior knowledge of true labels. 
 Clustering algorithms partition the data into groups or clusters such that data points within the same cluster are more similar to each other than to those in other clusters.
@@ -325,11 +358,13 @@ clinical_data['cluster'].value_counts()
 clinical_data
 ```
 
-<details><summary>Why Do We Need Cluster Profiles?</summary>
-
-A cluster profile helps summarize and interpret the characteristics of each cluster after performing clustering (e.g., K-Means, Hierarchical, DBSCAN). It provides meaningful insights into the underlying patterns within the data.
+<details>
+  
+  **Why Do We Need Cluster Profiles?**
+  A cluster profile helps summarize and interpret the characteristics of each cluster after performing clustering (e.g., K-Means, Hierarchical, DBSCAN). It provides meaningful insights into the underlying patterns within the data.
 
 **Key Reasons for Creating Cluster Profiles**
+
 1. **Understanding Cluster Characteristics**
 Helps determine what makes each cluster distinct by computing summary statistics (e.g., mean, median) for each feature.
 **Example: **In a medical dataset, clusters may represent different patient groups based on clinical parameters.
@@ -394,7 +429,9 @@ plt.show()
 ```
 
 <details>
-**Classification in Machine Learning**
+  
+  **Classification in Machine Learning**
+
 Classification is a type of supervised learning where the goal is to predict the category or class that a given input belongs to, based on patterns learned from labeled data. The output variable (target) is categorical, which means it can take one of a limited number of distinct values (e.g., "spam" or "not spam," "disease" or "no disease").
 
 **Training and Test Datasets**
@@ -446,6 +483,7 @@ The final prediction is made by taking the majority vote of all the individual t
 </details>
 
 <details>
+  
 **Understanding 0-1-2 SNP Data Encoding in Genetics** 
   
 In genomic studies, single nucleotide polymorphisms (SNPs) are variations in a single nucleotide (A, T, C, or G) at a specific position in the genome. The 0-1-2 encoding is a numerical representation of SNP genotypes that simplifies their use in statistical and machine learning models.
@@ -522,6 +560,7 @@ print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 <details>
   
 **Evaluation Metrics**
+
 **1. Model Accuracy:** 0.8400
 Accuracy indicates that the model correctly classified 84% of all instances across the 4 classes. This is a solid result, but depending on the dataset and problem, you may want to focus more on precision, recall, and F1-scores (especially if the classes are imbalanced).
 
@@ -643,7 +682,8 @@ How does the new result compare to the result before hyperparameter tuning
 <details>
   
   **Explainable AI (XAI) & SHAP**
-Explainable AI (XAI) refers to techniques and tools that help us understand and interpret machine learning models. While many ML models (e.g., deep learning, ensemble methods) are often considered "black boxes," XAI methods provide insights into how models make predictions.
+  
+  Explainable AI (XAI) refers to techniques and tools that help us understand and interpret machine learning models. While many ML models (e.g., deep learning, ensemble methods) are often considered "black boxes," XAI methods provide insights into how models make predictions.
 One of the most powerful XAI techniques is SHAP (SHapley Additive exPlanations), which is based on game theory and helps explain how each feature contributes to a model's prediction.
 
 
