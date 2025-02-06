@@ -33,7 +33,7 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 10:20 AM - 12:15 PM| **Practical Session 1:** Hands-on workshop (Machine Learning) - We will work through a series of exercises together, applying concepts discussed earlier.| Dr. Itunuoluwa Isewon, Dr. Conrad Iyegbe, Dr. Melek Chaouch, Emmanuel Alagbe & Faith Adegoke|
 12:15 PM - 1:00 PM| Lunch Break |
 1:00 PM - 2:00 PM|**Plenary II – Integrating multi-modal data with AI for targeted treatment in Depression and Hypertension** (A virtual talk)|Dr Raquel Iniesta, Reader in Statistical Learning for Personalised Medicine, Department of Biostatistics & Health Informatics, King's College London (UK) |
-2:00 PM - 3:00 PM|Ethical Consideration in AI Adoption in Human Genetics Research - A 30-minute presentation followed by a discussion on the ethical aspects of AI. |Dr. Raquel Iniesta|
+2:00 PM - 3:00 PM|**Ethical Consideration in AI Adoption in Human Genetics Research** - A 30-minute presentation followed by a discussion on the ethical aspects of AI. |Dr. Raquel Iniesta, Professor Lukoye Atwoli, MBS, MBChB, MMed Psych, PhD|
 3:00 PM - 3:30 PM| **Practical Session 2:** Hands-on Application of Generative AI Models for Programming Tasks (Independent Task) - Introduction to the practical session in which you will work independently to apply generative AI models to solve programming challenges|Dr. Itunuoluwa Isewon, Dr. Conrad Iyegbe, Dr. Melek Chaouch, Emmanuel Alagbe & Faith Adegoke|
 3:30 PM - 3:50 PM| **Tea Break** - Refresh and recharge with a short break.|
 3:50 PM - 5:00 PM| **Practical Session 2 Continued:** - Resume the independent tasks, with facilitators available to assist |Dr. Itunuoluwa Isewon, Dr. Conrad Iyegbe, Dr. Melek Chaouch, Emmanuel Alagbe & Faith Adegoke|
