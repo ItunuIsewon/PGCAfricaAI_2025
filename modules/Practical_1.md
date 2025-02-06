@@ -594,10 +594,12 @@ cluster_profile_categorical[['age', 'sex', 'cohort', 'BMI_category', 'systolic_B
 <details>
   
   **Violin Plot: An Advanced Visualization of Data Distribution**
+  
 A violin plot is a combination of a box plot and a density plot, used to visualize the distribution, probability density, and spread of a dataset. It is particularly useful for comparing multiple groups.
 
 **Key Components of a Violin Plot**
 A violin plot consists of:
+
 🔹 Kernel Density Estimate (KDE) Plot
 
 The shape of the violin shows the distribution of the data.
@@ -760,6 +762,7 @@ An individual with AG will be encoded as 1
 An individual with GG will be encoded as 2
 
 **Why Use 0-1-2 Encoding?**
+
 1. Numeric Representation: Machine learning and statistical models work better with numerical inputs rather than categorical A/T/C/G labels.
 2. Linear Interpretability: Many models assume a linear relationship between the number of risk alleles and disease risk.
 3. Efficient Storage & Computation: Instead of storing two separate allele columns, a single integer column is more compact.
@@ -798,6 +801,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, 
 <details>
   
   **Feature Selection**
+  
 It is choosing the most important features for a model.
 
 **Why is it important?**
@@ -820,6 +824,7 @@ alpha = 0.01
 <details>
   
   **What is LASSO?**
+  
 LASSO is a type of regression that performs both regularization and feature selection. It is particularly useful when dealing with high-dimensional data where many features may be irrelevant or redundant.
 
 **Key Properties of LASSO**
@@ -840,6 +845,7 @@ lasso_features = np.abs(lasso.coef_) > 0  # Select nonzero features
 <details>
   
   **SVM-RFE (Support Vector Machine Recursive Feature Elimination)** 
+  
   This is a feature selection technique that uses SVM to recursively remove features that contribute the least to the prediction model's performance. The goal is to select a subset of features that are most relevant for improving model accuracy.
 
 **Here’s how it works in simple steps:**
@@ -867,7 +873,9 @@ svm_rfe_features = np.where(rfe.support_)[0]
 <details>
   
   **Elastic Net**
+  
   Elastic Net is a regularization technique that combines two common regularization methods: L1 (Lasso) and L2 (Ridge) regularization. It is advantageous when you have a dataset with many correlated features, as it balances the strengths of Lasso (which can produce sparse solutions by setting some coefficients to zero) and Ridge (which tends to shrink coefficients without setting them to zero).
+  
 </details>
 
 ```python
