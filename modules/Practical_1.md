@@ -13,7 +13,10 @@ height (in meters), weight (in kg), BMI (calculated: weight / height²), waist_c
 
 **Cardiometabolic Traits:** systolic_BP (mmHg) diastolic_BP (mmHg) LDL_cholesterol, HDL_cholesterol (mg/dL)
 
+
 ******
+‼️**Note:** Ensure that the dataset is in your current working directory or you use the full path leading to it.
+
 ```python
 import pandas as pd
 import numpy as np
@@ -256,8 +259,9 @@ plt.grid(True)
 plt.show()
 ```
 
-What threshold should do you think is appropriate for choosing principal components?
-A useful information PCA gives is the number of clusters(groups) that are in the data
+❓ What threshold should do you think is appropriate for choosing principal components?
+
+📜 A useful information PCA gives is the number of clusters(groups) that are in the data.
 
 ```python
 # Transform the data into principal components
@@ -373,8 +377,6 @@ loadings = pca.components_
 # Display the loadings for each principal component
 loading_df = pd.DataFrame(loadings, columns=clinical_data.columns, index=[f'PC{i+1}' for i in range(loadings.shape[0])])
 
-
-
 # Plot the loadings for the first few principal components
 import seaborn as sns
 
@@ -405,8 +407,9 @@ from sklearn.cluster import KMeans
 kmeans = KMeans(n_clusters=4, random_state=42)
 clinical_data.loc[:, 'cluster'] = kmeans.fit_predict(scaled_data)
 ```
-
-.value_counts() is a Pandas function used to count the occurrences of unique values in a Series (a single column of a DataFrame). It’s commonly used for analyzing categorical or discrete numerical data.
+******
+📜.value_counts() is a Pandas function used to count the occurrences of unique values in a Series (a single column of a DataFrame). It’s commonly used for analyzing categorical or discrete numerical data.
+******
 
 ```python
 clinical_data['cluster'].value_counts()
@@ -553,7 +556,7 @@ for column in selected_columns:
     plt.show()
 ```
 
-Can you identify unique patterns in the clusters based on these cluster profiles?
+❓ Can you identify unique patterns in the clusters based on these cluster profiles?
 
 <details>
   
@@ -987,7 +990,7 @@ plt.show()
 ```python
 classes = np.unique(y_pred)
 ```
-How does the new result compare to the result before hyperparameter tuning
+❓ How does the new result compare to the result before hyperparameter tuning
 
 ```python
 #pip install shap
