@@ -8,10 +8,10 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 ******
 ### 🌐 **Generative A.I Model to be used:** ChatGPT
 
-### 📥 **Data:** Download it [here](https://bit.ly/Practical2_Data)
+### 📥 **Data:** Download the two files [here](https://bit.ly/Practical2_Data)
 
 ## 🔧 Task 1: Exploring the Data
- + Use ChatGPT to understand the structure and type of dataset that you have been provided with.
+ + Use ChatGPT to understand the structure and type of the datasets (the two files) that you have been provided with.
  + Examine the first few rows and statistical summary using .head() and .describe().
  + Use ChatGPT to generate Python codes to visualize the distribution of the target variable (diagnosis).
 
