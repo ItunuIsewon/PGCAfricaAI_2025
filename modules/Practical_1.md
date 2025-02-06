@@ -16,7 +16,7 @@ height (in meters), weight (in kg), BMI (calculated: weight / height²), waist_c
 
 
 ******
-‼️**Note:** Ensure that the dataset is in your current working directory or you use the full path leading to it.
+‼️**Note:** Ensure that the dataset is in your current working directory or use its full path.
 
 ```python
 #import libraries
