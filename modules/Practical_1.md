@@ -1,10 +1,16 @@
 # Practical Session 1 – Hands-On Workshop (Machine Learning)
 
 ## Dataset Overview
-This synthetic dataset consists of 1,000 simulated individuals with a combination of demographic, clinical, and 
-genomic features relevant to population genetics and association studies. 
-It contains 1,013 variables, including age, sex, and cohort information, representing different population groups. 
-Clinical data include measurements such as systolic and diastolic blood pressure, LDL and HDL cholesterol levels, height, weight, and body mass index.
+The following data is a synthetic data containing the the following columns:
+
+**Columns for Anthropometric Traits:**
+height (in meters), weight (in kg), BMI (calculated: weight / height²), waist_circumference (in cm), hip_circumference (in cm), and WHR (waist_circumference / hip_circumference)
+
+**Metadata:** age (years) sex (e.g., Male/Female) cohort (e.g., Ugandan or Zulu)
+
+**Genotype Data:** 1000 Simplified SNP columns with values representing genetic variants (e.g., 0, 1, 2).
+
+**Cardiometabolic Traits:** systolic_BP (mmHg) diastolic_BP (mmHg) LDL_cholesterol, HDL_cholesterol (mg/dL)
 
 ******
 ```python
@@ -15,7 +21,8 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 # Load the dataset
-data = pd.read_csv('synthetic_data_clusters_v11.csv')
+data = pd.read_csv('synthetic_data_clusters_v18.csv')
+
 ```
 
 ```python
@@ -27,17 +34,41 @@ print(clinical_data.head())
 ```
 
 ```python
-clinical_data.columns
+len(clinical_data.columns)
 ```
 
 <details>
   
   **Output:**
-  
-<code>Index(['age', 'sex', 'cohort', 'systolic_BP', 'diastolic_BP', 'LDL_cholesterol', 'HDL_cholesterol', 'height', 'weight', 'BMI', 'waist_circumference', 'hip_circumference', 'WHR'], dtype='object')
-</code>
+13
+</details>
 
-</details> 
+```python
+# Step 1: Identify and remove outliers for all numeric columns
+numeric_cols = clinical_data.select_dtypes(include=['float64', 'int64']).columns
+
+# Function to calculate IQR and remove outliers
+def remove_outliers(df, cols):
+    df_no_outliers = df.copy()
+    for col in cols:
+        Q1 = df_no_outliers[col].quantile(0.25)
+        Q3 = df_no_outliers[col].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+        df_no_outliers = df_no_outliers[(df_no_outliers[col] >= lower_bound) & (df_no_outliers[col] <= upper_bound)]
+    return df_no_outliers
+
+# Remove outliers from all numeric columns
+```
+
+```python
+clinical_data = remove_outliers(clinical_data, numeric_cols)
+```
+
+```python
+clinical_data
+```
 
 <details>
 
@@ -177,14 +208,14 @@ for i, variance in enumerate(cumulative_variance, start=1):
   
   **Output:**
 
-Principal Component 1: 0.2629
-Principal Component 2: 0.5023
-Principal Component 3: 0.6124
-Principal Component 4: 0.6932
-Principal Component 5: 0.7718
-Principal Component 6: 0.8370
-Principal Component 7: 0.8945
-Principal Component 8: 0.9429
+Principal Component 1: 0.2614
+Principal Component 2: 0.5016
+Principal Component 3: 0.6112
+Principal Component 4: 0.6920
+Principal Component 5: 0.7710
+Principal Component 6: 0.8368
+Principal Component 7: 0.8952
+Principal Component 8: 0.9440
 Principal Component 9: 0.9902
 Principal Component 10: 0.9971
 Principal Component 11: 0.9994
@@ -194,9 +225,17 @@ Principal Component 13: 1.0000
 </details>
 
 ```python
+# Find the number of components where cumulative variance first exceeds 90%
+num_components_90 = np.argmax(cumulative_variance >= 0.90) + 1  # Add 1 to match component index
+
+
 # Plot cumulative variance explained
 plt.figure(figsize=(8, 6))
 plt.plot(range(1, len(cumulative_variance) + 1), cumulative_variance, marker='o', linestyle='--')
+plt.axhline(y=0.90, color='r', linestyle='--', label='90% Variance Explained')
+# Add vertical line at the number of components reaching 90%
+plt.axvline(x=num_components_90, color='r', linestyle='--', label=f'{num_components_90} Components (90%)')
+
 plt.title('Cumulative Variance Explained by PCA')
 plt.xlabel('Number of Principal Components')
 plt.ylabel('Cumulative Variance Explained')
@@ -220,10 +259,13 @@ pc2 = pca_components[:, 1]
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+
+#clinical_data.loc[:, 'sex'] = clinical_data['sex'].map({ 0:'Female', 1:'Male'})
+
 # Plot for Sex: Male vs Female
 plt.figure(figsize=(10, 8))
 scatter = plt.scatter(pc1, pc2, 
-                      c=data['sex'].apply(lambda x: 0 if x == 'Male' else 1), 
+                      c=clinical_data['sex'], #.apply(lambda x: 0 if x == 'Male' else 1)
                       cmap='coolwarm', alpha=0.6)
 
 # Create custom legend
@@ -238,10 +280,13 @@ plt.grid(True)
 plt.colorbar(scatter, label='Sex')
 plt.show()
 
+```
+
+```python
 # Plot for Cohort: Ugandan vs Zulu
 plt.figure(figsize=(10, 8))
 scatter = plt.scatter(pc1, pc2, 
-                      c=data['cohort'].apply(lambda x: 0 if x == 'Ugandan' else 1), 
+                      c=clinical_data['cohort'], 
                       cmap='viridis', alpha=0.6)
 
 # Create custom legend for cohort
@@ -255,6 +300,7 @@ plt.legend(handles=legend_labels, loc='best')
 plt.grid(True)
 plt.colorbar(scatter, label='Cohort')
 plt.show()
+
 ```
 
 <details>
@@ -325,6 +371,7 @@ plt.title('PCA Loadings for Each Principal Component')
 plt.xlabel('Principal Component')
 plt.ylabel('Variables')
 plt.show()
+
 ```
 
 <details>
@@ -341,10 +388,8 @@ Clustering algorithms partition the data into groups or clusters such that data 
 
 ```python
 from sklearn.cluster import KMeans
-
 # Apply K-means clustering (for example, 3 clusters for risk stratification)
 kmeans = KMeans(n_clusters=4, random_state=42)
-clinical_data = clinical_data.copy()
 clinical_data.loc[:, 'cluster'] = kmeans.fit_predict(scaled_data)
 ```
 
@@ -352,10 +397,6 @@ clinical_data.loc[:, 'cluster'] = kmeans.fit_predict(scaled_data)
 
 ```python
 clinical_data['cluster'].value_counts()
-```
-
-```python
-clinical_data
 ```
 
 <details>
@@ -396,37 +437,145 @@ cluster_profile
 ```
 
 ```python
-import matplotlib.pyplot as plt
-import seaborn as sns
+cluster_profile_categorical = cluster_profile
 
-# Assuming 'cluster_profile' is your DataFrame with mean values for each cluster
-# You can customize the features you want to visualize
-# Convert all columns to numeric (if applicable)
-cluster_profile = cluster_profile.apply(pd.to_numeric, errors='coerce')
 
-# Plotting the cluster profiles (mean of each feature for each cluster)
-plt.figure(figsize=(10, 3))
-sns.heatmap(cluster_profile, annot=True, cmap='coolwarm', cbar=True, fmt='.2f')
-plt.title('Cluster Profiles - Mean Feature Values by Cluster')
-plt.xlabel('Features')
-plt.ylabel('Clusters')
-plt.show()
+import pandas as pd
+
+# Function to categorize BMI
+def categorize_bmi(bmi):
+    if bmi < 18.5:
+        return 'Underweight'
+    elif 18.5 <= bmi < 24.9:
+        return 'Healthy'
+    elif 25 <= bmi < 29.9:
+        return 'Overweight'
+    else:
+        return 'Obese'
+
+# Function to categorize Systolic BP
+def categorize_systolic_bp(sbp):
+    if sbp < 120:
+        return 'Normal'
+    elif 120 <= sbp < 130:
+        return 'Elevated'
+    elif 130 <= sbp < 140:
+        return 'Hypertension Stage 1'
+    else:
+        return 'Hypertension Stage 2'
+
+# Function to categorize Diastolic BP
+def categorize_diastolic_bp(dbp):
+    if dbp < 80:
+        return 'Normal'
+    elif 80 <= dbp < 90:
+        return 'Elevated'
+    else:
+        return 'Hypertension'
+
+# Function to categorize LDL cholesterol
+def categorize_ldl(ldl):
+    if ldl < 100:
+        return 'Optimal'
+    elif 100 <= ldl < 130:
+        return 'Near Optimal'
+    elif 130 <= ldl < 160:
+        return 'Borderline High'
+    elif 160 <= ldl < 190:
+        return 'High'
+    else:
+        return 'Very High'
+
+# Function to categorize HDL cholesterol
+def categorize_hdl(hdl):
+    if hdl < 40:
+        return 'Low'
+    elif 40 <= hdl < 60:
+        return 'Normal'
+    else:
+        return 'High'
+
+# Function to categorize WHR
+def categorize_whr(whr):
+    if whr < 0.85:
+        return 'Healthy'
+    else:
+        return 'High'
+
+
+# Applying the categorization functions to the DataFrame
+cluster_profile_categorical['BMI_category'] = cluster_profile_categorical['BMI'].apply(categorize_bmi)
+cluster_profile_categorical['systolic_BP_category'] = cluster_profile_categorical['systolic_BP'].apply(categorize_systolic_bp)
+cluster_profile_categorical['diastolic_BP_category'] = cluster_profile_categorical['diastolic_BP'].apply(categorize_diastolic_bp)
+cluster_profile_categorical['LDL_category'] = cluster_profile_categorical['LDL_cholesterol'].apply(categorize_ldl)
+cluster_profile_categorical['HDL_category'] = cluster_profile_categorical['HDL_cholesterol'].apply(categorize_hdl)
+cluster_profile_categorical['WHR_category'] = cluster_profile_categorical['WHR'].apply(categorize_whr)
+# Optional: Convert cohort to categorical (Zulu or Ugandan)
+cluster_profile_categorical['cohort'] = cluster_profile_categorical['cohort'].map({0.0: 'Zulu', 1.0: 'Ugandan'})
+# Example: If 'sex' is 0 for Male and 1 for Female, convert it to "Male" and "Female"
+cluster_profile_categorical['sex'] = cluster_profile_categorical['sex'].map({0: 'Male', 1: 'Female'})
+# Display the updated DataFrame with categories
+cluster_profile_categorical[['age', 'sex', 'cohort', 'BMI_category', 'systolic_BP_category', 
+          'diastolic_BP_category', 'LDL_category', 'HDL_category', 'WHR_category']]
+
 ```
-Can you identify unique patterns in the clusters based on these cluster profiles
 
 ```python
-clinical_data = clinical_data.copy()
-# Add PCA components to dataframe
-clinical_data.loc[:,'PC1'] = pc1
-clinical_data.loc[:,'PC2'] = pc2
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-# Plot PCA with clusters
-plt.figure(figsize=(10, 6))
-sns.scatterplot(x='PC1', y='PC2', data=clinical_data, hue=clinical_data['cluster'], palette='Set2', alpha=0.7)
-plt.title('PCA Visualization of Clusters')
-plt.legend(title='Cluster')
-plt.show()
+# List of all numeric columns in the dataframe except 'age' and 'LDL_cholesterol'
+selected_columns = ['systolic_BP', 'diastolic_BP', 'LDL_cholesterol', 'height', 'weight', 
+                   'waist_circumference', 'hip_circumference']
+
+# Create a violin plot for each numeric column, grouped by the 'cluster' column
+for column in selected_columns:
+    plt.figure(figsize=(8, 6))
+    sns.violinplot(x='cluster', y=column, data=clinical_data)
+    plt.title(f'Violin Plot of {column} by Cluster')
+    plt.show()
 ```
+
+Can you identify unique patterns in the clusters based on these cluster profiles?
+
+<details>
+  
+  The clusters represent distinct health profiles, each associated with varying degrees of cardiovascular and metabolic risk. Here's how we can assess the risk for each cluster:
+
+**Cluster 0: Moderate Cardiovascular Risk, Balanced Cholesterol**
+Risk of:
++ **Metabolic Syndrome:** Borderline elevated BMI and moderate LDL cholesterol levels could indicate a risk of developing metabolic syndrome (a group of conditions like high blood pressure, high cholesterol, and high blood sugar).
++ **Cardiovascular Disease:** While blood pressure is normal, the individual still has a higher LDL cholesterol level, which can contribute to atherosclerosis (plaque buildup in the arteries).
++ **Type 2 Diabetes:** The borderline overweight status (BMI 25.7) may increase the risk for insulin resistance or developing type 2 diabetes.
+
+**Cluster 1: Higher Cholesterol and Blood Pressure, Possible Increased Risk**
+Risk of:
++ **Hypertension:** The elevated systolic and diastolic blood pressure (128/84 mmHg) puts individuals in this cluster at a higher risk of hypertension, which is a significant risk factor for stroke and heart disease.
++ **Cardiovascular Disease:** Elevated blood pressure combined with high LDL cholesterol can significantly increase the risk of atherosclerosis, which could lead to coronary artery disease, heart attacks, and strokes.
++ **Obesity-Related Conditions:** The increased waist-to-hip ratio (WHR of 0.96) suggests abdominal obesity, which is strongly linked to a higher risk of type 2 diabetes, non-alcoholic fatty liver disease (NAFLD), and metabolic syndrome.
++ **Type 2 Diabetes:** Abdominal fat and higher cholesterol levels may indicate insulin resistance, which could lead to type 2 diabetes.
+
+**Cluster 2: Similar to Cluster 1 with Slight Differences**
+Risk of:
++ **Hypertension and Cardiovascular Disease:** Elevated systolic and diastolic blood pressure (130/85 mmHg) combined with high LDL cholesterol levels puts individuals at increased risk for heart disease, stroke, and other cardiovascular events.
++ **Obesity-Related Conditions:** Even with a slightly lower WHR (compared to Cluster 1), this cluster still has a BMI over 25 and higher abdominal fat, placing them at risk for metabolic syndrome, type 2 diabetes, and fatty liver disease.
++ **Type 2 Diabetes:** The presence of elevated LDL cholesterol, slightly elevated blood pressure, and higher BMI suggests a heightened risk for insulin resistance and type 2 diabetes.
+
+  
+**Cluster 3: Lower Cholesterol and Blood Pressure, More Healthy Profile**
+Risk of:
++ **Metabolic Syndrome:** Despite having a relatively healthy cholesterol profile, the higher WHR (0.96) indicates abdominal obesity, which is associated with an increased risk of developing metabolic syndrome, including type 2 diabetes and cardiovascular diseases.
++ **Cardiovascular Disease:** While this cluster has relatively normal blood pressure and cholesterol, the abdominal obesity (high WHR) still suggests a moderate risk of heart disease.
++ **Type 2 Diabetes:** The higher WHR indicates a higher risk of insulin resistance and type 2 diabetes, despite the relatively normal BMI and lipid levels.
+
+**Summary of Risks for Each Cluster:**
+**Cluster 0:** Moderate cardiovascular and metabolic risk due to BMI and LDL cholesterol. Risk of metabolic syndrome and type 2 diabetes.
+**Cluster 1:** High cardiovascular and metabolic risk due to high blood pressure, high LDL cholesterol, and abdominal obesity. Significant risk of heart disease, stroke, type 2 diabetes, and metabolic syndrome.
+**Cluster 2:** High cardiovascular and metabolic risk, similar to Cluster 1 but with slightly different lipid and blood pressure profiles. Elevated risk for hypertension, heart disease, and diabetes.
+**Cluster 3:** Moderate risk due to abdominal obesity (high WHR), despite normal cholesterol and blood pressure. Risk of cardiovascular disease, metabolic syndrome, and type 2 diabetes.
+
+</details>
+
 
 <details>
   
@@ -514,7 +663,8 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 
 # Extract SNP features (columns that start with 'SNP_')
 snp_data = data.loc[:, data.columns.str.startswith('SNP_')]
-
+# Subset 'data' to have the same indices as 'clinical_data_NO'
+snp_data = snp_data.loc[clinical_data.index]
 snp_data
 ```
 
@@ -535,14 +685,88 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, 
 ```
 
 ```python
+from sklearn.linear_model import Lasso, ElasticNet
+alpha = 0.01
+```
+```python
+# Lasso Regression
+lasso = Lasso(alpha= alpha,max_iter= 10000)
+lasso.fit(X_train, y_train)
+lasso_features = np.abs(lasso.coef_) > 0  # Select nonzero features
+```
+
+
+```python
+from sklearn.svm import SVC
+from sklearn.feature_selection import RFE
+
+# Define SVM as the estimator for RFE
+svm = SVC(kernel="linear", C=1)  # Linear kernel is important for feature selection
+
+# Perform Recursive Feature Elimination (RFE)
+rfe = RFE(estimator=svm)  # Select top 5 features n_features_to_select=5
+rfe.fit(X_train, y_train)
+svm_rfe_features = np.where(rfe.support_)[0]
+```
+
+```python
+# Elastic Net Regression
+elastic_net = ElasticNet(alpha= alpha, l1_ratio=0.5,max_iter= 10000)  # 50% L1, 50% L2 penalty
+elastic_net.fit(X_train, y_train)
+elastic_net_features = np.abs(elastic_net.coef_) > 0  # Select nonzero features
+```
+
+```python
 # Train a Random Forest Classifier
 clf = RandomForestClassifier(random_state=42)
-clf.fit(X_train, y_train)
+```
+
+```python
+# Function to evaluate Random Forest with selected features
+def evaluate_rf(selected_features, name):
+    X_train_selected = X_train[:, selected_features]
+    X_test_selected = X_test[:, selected_features]
+
+    clf.fit(X_train_selected, y_train)
+    y_pred = clf.predict(X_test_selected)
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"{name} Feature Selection - Random Forest Accuracy: {accuracy:.4f}")
+    return accuracy
+```
+
+```python
+# Evaluate models
+lasso_acc = evaluate_rf(lasso_features, "Lasso")
+svm_rfe_acc = evaluate_rf(svm_rfe_features, "svm_rfe")
+elastic_net_acc = evaluate_rf(elastic_net_features, "Elastic Net")
+```
+
+```python
+# Compare results
+plt.figure(figsize=(6, 4))
+plt.bar(["Lasso", "svm-rfe", "Elastic Net"], [lasso_acc, svm_rfe_acc, elastic_net_acc], color=['blue', 'green', 'red'])
+plt.ylabel("Random Forest Accuracy")
+plt.title("Comparison of Feature Selection Methods")
+plt.ylim(0.8, 0.9)
+plt.show()
+```
+
+```python
+X_train_svm_rfe_selected = X_train[:, svm_rfe_features]
+X_test_svm_rfe_selected = X_test[:, svm_rfe_features]
+```
+
+```python
+X_train_svm_rfe_selected.shape
+```
+
+```python
+clf.fit(X_train_svm_rfe_selected, y_train)
 ```
 
 ```python
 # Predict on test data
-y_pred = clf.predict(X_test)
+y_pred = clf.predict(X_test_svm_rfe_selected)
 ```
 
 ```python
@@ -557,45 +781,50 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 ```
 
+
 <details>
   
 **Evaluation Metrics**
+  
+  1. **Model Accuracy:** 0.9072. This indicates that the model correctly classified 90.72% of all instances across the 4 classes. This is a strong result, but depending on the dataset and problem, you may want to focus more on precision, recall, and F1-scores (especially if the classes are imbalanced).
+  2. **Classification Report:** The classification report gives a more detailed view of the model’s performance for each class.
+  3. **Precision:** The percentage of correct positive predictions out of all positive predictions for that class.
+Class 0 (Precision: 98%): The model is very accurate when it predicts Class 0, with 98% of those predictions being correct.
+Class 1 (Precision: 100%): All predictions made for Class 1 are correct, indicating perfect precision for this class.
+Class 2 (Precision: 78%): The model has room for improvement here, as it occasionally misclassifies other classes as Class 2.
+Class 3 (Precision: 91%): Most predictions for Class 3 are correct, though there is still a small portion of incorrect predictions.
+  4. **Recall:** The percentage of actual instances of each class that were correctly predicted.
+Class 0 (Recall: 95%): The model correctly identifies 95% of all actual Class 0 instances.
+Class 1 (Recall: 100%): The model never misses a Class 1 instance, showcasing perfect recall for this class.
+Class 2 (Recall: 90%): The model does a fairly good job of catching most Class 2 instances, missing 10%.
+Class 3 (Recall: 79%): While most Class 3 samples are identified correctly, there is a notable portion (21%) that the model fails to recognize as Class 3.
 
-**1. Model Accuracy:** 0.8400
-Accuracy indicates that the model correctly classified 84% of all instances across the 4 classes. This is a solid result, but depending on the dataset and problem, you may want to focus more on precision, recall, and F1-scores (especially if the classes are imbalanced).
+  5. **F1-Score**
+The harmonic mean of precision and recall, is useful when dealing with imbalanced classes or when you want a single metric that balances both.
 
-**2. Classification Report**
-The classification report gives a more detailed view of your model’s performance for each class.
+Class 0 (F1: 0.97): The high F1-score reflects the strong balance of precision and recall for Class 0.
+Class 1 (F1: 1.00): Perfect precision and recall lead to a perfect F1-score for Class 1.
+Class 2 (F1: 0.83): This moderate F1-score shows that while Class 2 performance is decent, it’s not as strong as Class 0 or Class 1.
+Class 3 (F1: 0.85): The model performs reasonably well but can still improve in identifying Class 3 accurately and consistently.
 
-**Precision:** The percentage of correct positive predictions out of all positive predictions for that class.
-Class 0: 83% of the predictions that were labeled as Class 0 were correct.
-Class 1: 97% of the predictions for Class 1 were correct, but the model struggles with recall.
-Class 2: Perfect prediction (100% precision and recall), indicating your model is excellent at identifying Class 2.
-Class 3: The precision of 67% means the model sometimes incorrectly predicts Class 3.
+**Confusion Matrix**
+  The confusion matrix compares actual classes (rows) to predicted classes (columns). Each row tells you how many samples of a given actual class were predicted as each possible class. 
 
-**Recall:** The percentage of actual instances of each class that were correctly predicted.
-Class 1 has a lower recall (69%), meaning the model misses a fair number of Class 1 samples.
-Class 3 has a recall of 89%, indicating the model does a good job of identifying Class 3.
+**Row 0 (Actual Class 0):**
+42 instances correctly predicted as Class 0.
+2 instances misclassified as Class 2.
 
+**Row 1 (Actual Class 1):**
+48 instances correctly predicted as Class 1.
+0 misclassifications in other classes.
 
-**F1-Score:** The harmonic mean of precision and recall. It balances the two metrics, making it useful when precision and recall are imbalanced.
-Class 2 has the highest F1 score (1.00), indicating near-perfect performance.
-Class 1 and Class 0 have balanced F1-scores (~0.80), which suggests a trade-off between precision and recall.
-Class 3 has a moderate F1-score (0.76), which could benefit from more tuning.
+**Row 2 (Actual Class 2):**
+45 instances correctly predicted as Class 2.
+1 instance misclassified as Class 0 and 4 as Class 3.
 
-**3. Confusion Matrix**
-The confusion matrix shows the actual vs. predicted class counts, which can help further interpret the performance:
-Row 0 (Actual Class 0):
-40 instances were correctly predicted as Class 0.
-12 instances were misclassified as Class 3.
-Row 1 (Actual Class 1):
-31 instances were correctly predicted as Class 1.
-3 instances were misclassified as Class 0, and 11 as Class 3.
-Row 2 (Actual Class 2):
-50 instances were perfectly predicted as Class 2.
-Row 3 (Actual Class 3):
-47 instances were correctly predicted as Class 3.
-5 instances were misclassified as Class 0, and 1 as Class 1.
+**Row 3 (Actual Class 3):**
+41 instances correctly predicted as Class 3.
+11 instances misclassified as Class 2.
 </details>
 
 <details>
@@ -628,17 +857,17 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 
-snp_data = data.loc[:, data.columns.str.startswith('SNP_')]
+# snp_data = data.loc[:, data.columns.str.startswith('SNP_')]
 
-# Target variable: clusters from previous K-Means
-y = clinical_data['cluster']  # Use the clusters as labels
+# # Target variable: clusters from previous K-Means
+# y = clinical_data['cluster']  # Use the clusters as labels
 
-# Standardize SNP features
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(snp_data)
+# # Standardize SNP features
+# scaler = StandardScaler()
+# X_scaled = scaler.fit_transform(snp_data)
 
-# Split into training (80%) and test (20%) sets
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42, stratify=y)
+# # Split into training (80%) and test (20%) sets
+# X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42, stratify=y)
 
 # Define hyperparameter grid
 param_grid = {
@@ -653,14 +882,14 @@ clf = RandomForestClassifier(random_state=42)
 
 # Grid Search with 5-fold cross-validation
 grid_search = GridSearchCV(clf, param_grid, cv=5, scoring='accuracy', n_jobs=-1, verbose=2)
-grid_search.fit(X_train, y_train)
+grid_search.fit(X_train_svm_rfe_selected, y_train)
 
 # Print the best parameters
 print(f"Best Hyperparameters: {grid_search.best_params_}")
 
 # Train final model with best parameters
 best_clf = grid_search.best_estimator_
-y_pred = best_clf.predict(X_test)
+y_pred = best_clf.predict(X_test_svm_rfe_selected)
 
 # Evaluate the optimized model
 accuracy = accuracy_score(y_test, y_pred)
@@ -671,6 +900,53 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
 # Confusion matrix
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+from sklearn.preprocessing import label_binarize
+
+# Convert labels to integers
+classes = np.unique(y_pred)
+y_test = label_binarize(y_test, classes=classes)
+y_pred = label_binarize(y_pred, classes=classes)
+# ROC Curve and AUC
+# Calculate ROC curve and AUC for each class (One-vs-Rest)
+fpr, tpr, roc_auc = dict(), dict(), dict()
+for i in range(len(classes)):
+    fpr[i], tpr[i], _ = roc_curve(y_test[:, i], y_pred[:, i])
+    roc_auc[i] = auc(fpr[i], tpr[i])
+
+# Plot ROC Curve
+plt.figure(figsize=(12, 6))
+for i in range(len(classes)):
+    plt.plot(fpr[i], tpr[i], lw=2, label=f'Class {classes[i]} (AUC = {roc_auc[i]:.2f})')
+
+plt.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Diagonal line
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='lower right')
+plt.show()
+
+# Calculate Precision-Recall and AUPR for each class
+precision, recall, aupr = dict(), dict(), dict()
+for i in range(len(classes)):
+    precision[i], recall[i], _ = precision_recall_curve(y_test[:, i], y_pred[:, i])
+    aupr[i] = average_precision_score(y_test[:, i], y_pred[:, i])
+
+# Plot Precision-Recall Curve
+plt.figure(figsize=(12, 6))
+for i in range(len(classes)):
+    plt.plot(recall[i], precision[i], lw=2, label=f'Class {classes[i]} (AUPR = {aupr[i]:.2f})')
+
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curve')
+plt.legend(loc='lower left')
+plt.show()
+```
+
+```python
+classes = np.unique(y_pred)
 ```
 How does the new result compare to the result before hyperparameter tuning
 
@@ -721,8 +997,8 @@ The SHAP summary plot provides a global overview of feature importance and their
 ```python
 import shap
 shap.initjs()
+from tqdm import tqdm
 import matplotlib.pyplot as plt
-import tqdm as notebook_tqdm
 
 explainer = shap.TreeExplainer(best_clf)
 shap_values = explainer.shap_values(X_scaled)
@@ -733,11 +1009,302 @@ np.shape(shap_values)
 ```python
 # Summarize SHAP values for the first class (or all classes)
 shap.summary_plot(shap_values[:,:, 0], snp_data, max_display=10)  # For binary classification, use shap_values[0] or shap_values[1]
+
 ```
-This plot reveals the impact of the first 10 features (snps)on the model, it shows that patients with higher values of these snps are likely to be classified as cluster 0
+
+<details>
+  
+  **Patient risk stratification**
+Patient risk stratification involves grouping patients based on their likelihood of developing a particular outcome, such as disease progression, complications, or treatment response. Using the synthetic data you've generated, you can apply a variety of methods to stratify patients into different risk categories. These methods can be based on both supervised and unsupervised learning approaches, depending on whether you have labelled data or are trying to discover inherent risk groups.
+</details>
 
 ```python
-shap.summary_plot(shap_values[:,:, 1], snp_data, max_display=10)
+# Create a synthetic binary outcome (1 = high risk, 0 = low risk)
+# For simplicity, let's say BMI > 30 or systolic BP > 130 puts patients in the high-risk group
+clinical_data['risk'] = np.where((clinical_data['BMI'] > 30) | (clinical_data['systolic_BP'] > 130), "High", "Low")
+
+```
+
+<details>
+  In terms of health risks, both Body Mass Index (BMI) and systolic blood pressure (BP) are commonly used to assess the likelihood of developing cardiovascular diseases and other chronic conditions.
+
+**BMI (Body Mass Index)**
+BMI is a measure of body fat based on height and weight. It is used to categorize individuals into different weight groups, which can impact health risks. The categories are:
+
+**Underweight:** BMI < 18.5
+**Normal weight:** BMI 18.5 - 24.9
+**Overweight:** BMI 25 - 29.9
+**Obesity:** BMI ≥ 30
+
+
+High risk is typically associated with:
+
+**Overweight:** Increases the risk of conditions like type 2 diabetes, heart disease, and stroke.
+**Obesity:** Carries a significantly higher risk for cardiovascular diseases, hypertension, type 2 diabetes, and certain cancers.
+
+
+**Systolic Blood Pressure (BP)**
+Systolic BP measures the pressure in your arteries when your heart beats. Normal BP is around 120/80 mmHg. The systolic value is the top number, representing the pressure in your arteries during a heartbeat.
+
+**BP categories:**
+Normal: < 120/80 mmHg
+Elevated: 120-129 systolic and < 80 diastolic
+Hypertension Stage 1: 130-139 systolic or 80-89 diastolic
+Hypertension Stage 2: ≥ 140 systolic or ≥ 90 diastolic
+
+**High risk is generally associated with:**
+**Hypertension Stage 1 and 2:** Increases the risk of heart disease, stroke, kidney disease, and other complications.
+High Risk (Combined)
+The combination of a high BMI (overweight or obesity) and high systolic blood pressure (hypertension) significantly increases the risk of Cardiovascular diseases including heart attack, Type 2 diabetes, Kidney disease, Certain cancers, and Stroke, Together, they indicate a higher likelihood of developing serious health complications, requiring interventions like lifestyle changes or medical treatment.
+
+</details>
+
+```python
+# Visualizing the distribution of target variable (assuming 'diagnosis' is the target column)
+sns.countplot(x='risk', data=clinical_data, hue='risk', palette= "pastel", legend= True)
+plt.title('Patient Stratification')
+plt.xlabel('Risk groups')
+plt.ylabel('Count')
+plt.show()
+```
+
+```python
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.svm import SVC
+from sklearn.feature_selection import RFE
+
+
+# snp_data = data.loc[:, data.columns.str.startswith('SNP_')]
+
+# # Target variable: clusters from previous K-Means
+# y = clinical_data['cluster']  # Use the clusters as labels
+y = clinical_data['risk']
+
+# # Standardize SNP features
+# scaler = StandardScaler()
+# X_scaled = scaler.fit_transform(snp_data)
+
+
+# # Split into training (80%) and test (20%) sets
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42, stratify=y)
+
+
+# Define SVM as the estimator for RFE
+svm = SVC(kernel="linear", C=1)  # Linear kernel is important for feature selection
+
+# Perform Recursive Feature Elimination (RFE)
+rfe = RFE(estimator=svm)  # Select top 5 features n_features_to_select=5
+rfe.fit(X_train, y_train)
+svm_rfe_features = np.where(rfe.support_)[0]
+
+X_train_svm_rfe_selected = X_train[:, svm_rfe_features]
+X_test_svm_rfe_selected = X_test[:, svm_rfe_features]
+
+# Define hyperparameter grid
+param_grid = {
+    'n_estimators': [50, 100, 200],
+    'max_depth': [10, 20, None],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4]
+}
+
+# Initialize Random Forest Classifier
+clf = RandomForestClassifier(random_state=42)
+
+# Grid Search with 5-fold cross-validation
+grid_search = GridSearchCV(clf, param_grid, cv=5, scoring='accuracy', n_jobs=-1, verbose=2)
+grid_search.fit(X_train_svm_rfe_selected, y_train)
+
+# Print the best parameters
+print(f"Best Hyperparameters: {grid_search.best_params_}")
+
+# Train final model with best parameters
+best_clf = grid_search.best_estimator_
+y_pred = best_clf.predict(X_test_svm_rfe_selected)
+
+# Evaluate the optimized model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Optimized Model Accuracy: {accuracy:.4f}")
+
+# Classification report
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+# Confusion matrix
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+# Convert 'y_true' and 'y_pred' from categorical to numeric (0 for 'Low' and 1 for 'High')
+y_test = np.where(y_test == "High", 1, 0)
+y_pred = np.where(y_pred == "High", 1, 0)
+
+# ROC Curve and AUC
+fpr, tpr, _ = roc_curve(y_test, y_pred)
+roc_auc = auc(fpr, tpr)
+
+# Precision-Recall Curve and AUPR
+precision, recall, _ = precision_recall_curve(y_test, y_pred)
+aupr = average_precision_score(y_test, y_pred)
+
+# Plot ROC Curve
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+plt.plot(fpr, tpr, color='b', lw=2, label=f'ROC curve (AUC = {roc_auc:.2f})')
+plt.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Diagonal line
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='lower right')
+
+# Plot Precision-Recall Curve
+plt.subplot(1, 2, 2)
+plt.plot(recall, precision, color='b', lw=2, label=f'Precision-Recall curve (AUPR = {aupr:.2f})')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curve')
+plt.legend(loc='lower left')
+
+plt.tight_layout()
+plt.show()
+```
+
+```python
+clinical_data["BMI"]
+```
+
+```python
+import pandas as pd
+
+# Define the BMI categories and bins based on WHO guidelines
+bins = [0, 18.5, 24.9, 29.9,  40, float('inf')]  # Adding infinity to capture BMI > 40
+labels = ['Underweight', 'healthy range', 'Overweight', 'Obesity', 'severe obesity']
+
+# Create a new column for BMI groups
+clinical_data['BMI_group'] = pd.cut(clinical_data['BMI'], bins=bins, labels=labels, right=False)
+
+# Show the first few rows to check the grouping
+print(clinical_data[['BMI', 'BMI_group']].head())
+
+```
+
+```python
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.svm import SVC
+from sklearn.feature_selection import RFE
+
+
+# snp_data = data.loc[:, data.columns.str.startswith('SNP_')]
+
+# # Target variable: clusters from previous K-Means
+# y = clinical_data['cluster']  # Use the clusters as labels
+y = clinical_data['BMI_group']
+
+# # Standardize SNP features
+# scaler = StandardScaler()
+# X_scaled = scaler.fit_transform(snp_data)
+
+
+# # Split into training (80%) and test (20%) sets
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42, stratify=y)
+
+
+# Define SVM as the estimator for RFE
+svm = SVC(kernel="linear", C=1)  # Linear kernel is important for feature selection
+
+# Perform Recursive Feature Elimination (RFE)
+rfe = RFE(estimator=svm)  # Select top 5 features n_features_to_select=5
+rfe.fit(X_train, y_train)
+svm_rfe_features = np.where(rfe.support_)[0]
+
+X_train_svm_rfe_selected = X_train[:, svm_rfe_features]
+X_test_svm_rfe_selected = X_test[:, svm_rfe_features]
+
+# Define hyperparameter grid
+param_grid = {
+    'n_estimators': [50, 100, 200],
+    'max_depth': [10, 20, None],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4]
+}
+
+# Initialize Random Forest Classifier
+clf = RandomForestClassifier(random_state=42)
+
+# Grid Search with 5-fold cross-validation
+grid_search = GridSearchCV(clf, param_grid, cv=5, scoring='accuracy', n_jobs=-1, verbose=2)
+grid_search.fit(X_train_svm_rfe_selected, y_train)
+
+# Print the best parameters
+print(f"Best Hyperparameters: {grid_search.best_params_}")
+
+# Train final model with best parameters
+best_clf = grid_search.best_estimator_
+y_pred = best_clf.predict(X_test_svm_rfe_selected)
+
+# Evaluate the optimized model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Optimized Model Accuracy: {accuracy:.4f}")
+
+# Classification report
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+# Confusion matrix
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+```
+
+```python
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+from sklearn.preprocessing import label_binarize
+
+# Convert labels to integers
+classes = np.unique(y_pred)
+y_test = label_binarize(y_test, classes=classes)
+y_pred = label_binarize(y_pred, classes=classes)
+# ROC Curve and AUC
+# Calculate ROC curve and AUC for each class (One-vs-Rest)
+fpr, tpr, roc_auc = dict(), dict(), dict()
+for i in range(len(classes)):
+    fpr[i], tpr[i], _ = roc_curve(y_test[:, i], y_pred[:, i])
+    roc_auc[i] = auc(fpr[i], tpr[i])
+
+# Plot ROC Curve
+plt.figure(figsize=(12, 6))
+for i in range(len(classes)):
+    plt.plot(fpr[i], tpr[i], lw=2, label=f'Class {classes[i]} (AUC = {roc_auc[i]:.2f})')
+
+plt.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Diagonal line
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='lower right')
+plt.show()
+
+# Calculate Precision-Recall and AUPR for each class
+precision, recall, aupr = dict(), dict(), dict()
+for i in range(len(classes)):
+    precision[i], recall[i], _ = precision_recall_curve(y_test[:, i], y_pred[:, i])
+    aupr[i] = average_precision_score(y_test[:, i], y_pred[:, i])
+
+# Plot Precision-Recall Curve
+plt.figure(figsize=(12, 6))
+for i in range(len(classes)):
+    plt.plot(recall[i], precision[i], lw=2, label=f'Class {classes[i]} (AUPR = {aupr[i]:.2f})')
+
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curve')
+plt.legend(loc='lower left')
+plt.show()
 ```
 
 
