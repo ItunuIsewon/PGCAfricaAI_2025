@@ -14,7 +14,7 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 📌 **coldata.csv (Clinical & Metadata)**
 
 + Contains patient-level clinical, demographic, and molecular subtype data.
-+ Key columns include tumor characteristics, staging, follow-up details, survival status, and molecular classifications (e.g., PAM50 subtypes).
++ Key columns include tumour characteristics, staging, follow-up details, survival status, and molecular classifications (e.g., PAM50 subtypes).
 + The paper_BRCA_Subtype_PAM50 column provides breast cancer molecular subtypes, crucial for stratifying patients in research.
   
 📌 **brca_matrix.csv (Gene-Level Data)**
@@ -28,6 +28,10 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
   - coldata.csv provides patient metadata, clinical outcomes, and molecular subtypes.
   - brca_matrix.csv provides high-dimensional gene expression signatures.
   - Combining them allows researchers to correlate clinical outcomes with genetic and molecular alterations.
+
+‼️**Note:** Ensure that the dataset is in your current working directory or you use its full path.
+
+******
 
 ## 🔧 Task 1: Exploring the Data
  + Use ChatGPT to understand the structure and type of the datasets (the two files) that you have been provided with.
