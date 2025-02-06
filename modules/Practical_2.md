@@ -8,7 +8,7 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 ******
 ### 🌐 **Generative A.I Model to be used:** ChatGPT
 
-### 📥 **Data:** Download the two files [here](https://bit.ly/Practical2_Data)
+### 📥 **Dataset:** Download the two files [here](https://bit.ly/Practical2_Data)
 
 ## 🔧 Task 1: Exploring the Data
  + Use ChatGPT to understand the structure and type of the datasets (the two files) that you have been provided with.
