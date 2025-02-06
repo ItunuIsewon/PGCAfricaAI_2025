@@ -1,7 +1,8 @@
 # Practical Session 1 – Hands-On Workshop (Machine Learning)
 
+### 📥 **Dataset:** Download the file [here](https://drive.google.com/drive/folders/1o_KLnkfJ-3nSStfaCQHdAQHJa2L9v3kY?usp=drive_link)
 
-## Dataset Overview
+### Dataset Overview
 The following data is a synthetic data containing the the following columns:
 
 **Columns for Anthropometric Traits:**
@@ -18,6 +19,7 @@ height (in meters), weight (in kg), BMI (calculated: weight / height²), waist_c
 ‼️**Note:** Ensure that the dataset is in your current working directory or you use the full path leading to it.
 
 ```python
+#import libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,8 +27,11 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 # Load the dataset
-data = pd.read_csv('synthetic_data_clusters_v18.csv')
+data = pd.read_csv('anthropometric_trait_gwas.csv')
 
+```
+```python
+data.head()
 ```
 
 ```python
@@ -36,16 +41,95 @@ clinical_data = data.loc[:, ~data.columns.str.startswith('SNP_')]
 # Display the first few rows
 print(clinical_data.head())
 ```
+<details>
+
+  **What is a Normal Distribution?**
+A normal distribution, also called a Gaussian distribution, is a symmetric, bell-shaped probability distribution where most values cluster around the mean.
+
+
+**Why Do We Want Data to Fit a Normal Distribution?**
+Many statistical and machine learning techniques assume normality because normal distributions have predictable properties that make analysis easier.
+
+**Why Normality is Important**
+
++ **Statistical tests assume normality**:
+T-tests, ANOVA, linear regression, Pearson correlation, etc. These tests give unreliable results if the data is skewed.
+  
++ **Better interpretability:**
+A normal distribution allows for easy calculation of probabilities.
+**Example:** Knowing someone’s IQ is 130 means they are 2 SD above the mean.
+
++ **Machine Learning Models Perform Better:**
+Many models (e.g., logistic regression, linear regression, LDA) work best when features are normally distributed.
+Non-normality can introduce bias and errors.
+
+
+**Why is Skewed Data Bad?**
+Skewness refers to a lack of symmetry in the distribution.
+
+**Types of Skewness**
+- Right (Positive) Skew 📈 - Tail is longer on the right.
+Example: Income distribution (a few people earn extremely high salaries).
+
+- Left (Negative) Skew 📉 - Tail is longer on the left.
+Example: Lifespan of car engines (most last long, few break early).
+
+**Problems with Skewed Data:**
+1. Misleading mean and standard deviation.
+2. In a skewed distribution, the mean is pulled toward the tail, making it not a good measure of central tendency.
+3. Statistical Tests Fail
+4. Many tests assume normality (t-test, regression).
+5. Results are unreliable if the data is heavily skewed.
+6. Machine Learning Performance Drops
+7. Skewed features make models struggle with prediction. Example: If a model expects normal data but the data is skewed, it may produce biased results.
+
+
+**How to Handle Skewed Data?**
+
+✅ Use transformations to make the data normal:
+Box-Cox transformation: More flexible transformation for different types of skew.
+
+✅ Apply Inverse Normal Transformation (INT)
+Converts ranks into a normal distribution without affecting rank order.
+
+✅ Use non-parametric tests
+If normality is hard to achieve, use tests that don’t assume normality (e.g., Mann-Whitney U test instead of t-test).
+
+</details>
 
 ```python
-len(clinical_data.columns)
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+for column in clinical_data.columns:
+    if clinical_data[column].dtype != 'object':  # Exclude categorical columns
+        plt.figure(figsize=(6, 4))
+        sns.histplot(clinical_data[column], kde=True)
+        plt.title(f'Distribution of {column}')
+        plt.show()
 ```
 
 <details>
   
-  **Output:**
-13
+  **Inverse Normal Transformation (INT)**
+Inverse Normal Transformation (INT), also called Rank-based Inverse Normal Transformation (RINT), is a statistical technique used to transform non-normally distributed data into a normal (Gaussian) distribution.
+
+**Why Use INT?**
+1. Many statistical methods (e.g., regression, ANOVA) assume normally distributed data.
+2. Helps reduce skewness and extreme values (outliers).
+3. Maintains the original rank order of the data.
+
+**How INT Works**
++ Rank the data: Assign ranks to each value.
++ Convert ranks to percentiles: Compute the cumulative probability of each rank.
++ Apply the inverse normal function: Map the percentiles to a standard normal distribution using the inverse normal (probit) function.
+
 </details>
+
+```python
+#check how many columns are in the clinical data file
+len(clinical_data.columns)
+```
 
 ```python
 # Step 1: Identify and remove outliers for all numeric columns
@@ -62,15 +146,15 @@ def remove_outliers(df, cols):
         upper_bound = Q3 + 1.5 * IQR
         df_no_outliers = df_no_outliers[(df_no_outliers[col] >= lower_bound) & (df_no_outliers[col] <= upper_bound)]
     return df_no_outliers
-
-# Remove outliers from all numeric columns
 ```
 
 ```python
+# Remove outliers from all numeric columns
 clinical_data = remove_outliers(clinical_data, numeric_cols)
 ```
 
 ```python
+#View the data after outlier removal, how many individuals are highlighted as outliers
 clinical_data
 ```
 
@@ -207,38 +291,6 @@ cumulative_variance = np.cumsum(pca.explained_variance_ratio_)
 for i, variance in enumerate(cumulative_variance, start=1):
     print(f"Principal Component {i}: {variance:.4f}")
 ```
-
-<details>
-  
-  **Output:**
-
-Principal Component 1: 0.2614
-
-Principal Component 2: 0.5016
-
-Principal Component 3: 0.6112
-
-Principal Component 4: 0.6920
-
-Principal Component 5: 0.7710
-
-Principal Component 6: 0.8368
-
-Principal Component 7: 0.8952
-
-Principal Component 8: 0.9440
-
-Principal Component 9: 0.9902
-
-Principal Component 10: 0.9971
-
-Principal Component 11: 0.9994
-
-Principal Component 12: 0.9999
-
-Principal Component 13: 1.0000
-
-</details>
 
 ```python
 # Find the number of components where cumulative variance first exceeds 90%
@@ -539,6 +591,35 @@ cluster_profile_categorical[['age', 'sex', 'cohort', 'BMI_category', 'systolic_B
           'diastolic_BP_category', 'LDL_category', 'HDL_category', 'WHR_category']]
 
 ```
+<details>
+  
+  **Violin Plot: An Advanced Visualization of Data Distribution**
+A violin plot is a combination of a box plot and a density plot, used to visualize the distribution, probability density, and spread of a dataset. It is particularly useful for comparing multiple groups.
+
+**Key Components of a Violin Plot**
+A violin plot consists of:
+🔹 Kernel Density Estimate (KDE) Plot
+
+The shape of the violin shows the distribution of the data.
+
+Wider sections represent higher density (more frequent values).
+
+Narrower sections represent lower density (fewer values).
+
+🔹 Box Plot Inside the Violin (Optional)
+
+White dot → Median
+
+Thick bar → Interquartile Range (IQR)
+
+Thin line ("whiskers") → Minimum & maximum non-outlier values
+
+Outliers (if shown) appear as individual points
+
+📌 Violin plots are useful when the data is multimodal (having multiple peaks), which is hard to see in a box plot alone.
+
+</details>
+
 
 ```python
 import seaborn as sns
@@ -554,6 +635,7 @@ for column in selected_columns:
     sns.violinplot(x='cluster', y=column, data=clinical_data)
     plt.title(f'Violin Plot of {column} by Cluster')
     plt.show()
+
 ```
 
 ❓ Can you identify unique patterns in the clusters based on these cluster profiles?
@@ -713,18 +795,62 @@ X_scaled = scaler.fit_transform(snp_data)
 # Split into training (80%) and test (20%) sets
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42, stratify=y)
 ```
+<details>
+  
+  **Feature Selection**
+It is choosing the most important features for a model.
+
+**Why is it important?**
++ Reduces overfitting.
++ Improves model interpretability.
++ Enhances computational efficiency.
+
+
+**Types of Feature Selection:**
+- Filter Methods (e.g., correlation, mutual information)
+- Wrapper Methods (e.g., Recursive Feature Elimination)
+- Embedded Methods (e.g., LASSO, ElasticNet)
+
+</details>
 
 ```python
 from sklearn.linear_model import Lasso, ElasticNet
 alpha = 0.01
 ```
+<details>
+  
+  **What is LASSO?**
+LASSO is a type of regression that performs both regularization and feature selection. It is particularly useful when dealing with high-dimensional data where many features may be irrelevant or redundant.
+
+**Key Properties of LASSO**
++ **Feature Selection:** Unlike Ridge Regression (which uses an L2 penalty and only shrinks coefficients but never makes them zero), LASSO eliminates less important features by setting their coefficients to zero.
+  
++ **Sparse Solutions:** When λ increases, more coefficients shrink to zero, reducing the number of selected features.
+  
++ **Interpretable Models:** Since LASSO retains only the most relevant features, it helps in understanding which predictors are truly influential.
+
+</details>
+
 ```python
 # Lasso Regression
 lasso = Lasso(alpha= alpha,max_iter= 10000)
 lasso.fit(X_train, y_train)
 lasso_features = np.abs(lasso.coef_) > 0  # Select nonzero features
 ```
+<details>
+  
+  **SVM-RFE (Support Vector Machine Recursive Feature Elimination)** 
+  This is a feature selection technique that uses SVM to recursively remove features that contribute the least to the prediction model's performance. The goal is to select a subset of features that are most relevant for improving model accuracy.
 
+**Here’s how it works in simple steps:**
++ Fit SVM: First, an SVM model is trained on all features.
+  
++ Rank Features: The features are ranked based on their importance to the SVM model, which typically uses the absolute values of the weight vector (coefficients) in a linear SVM or based on the impact on classification accuracy in a non-linear SVM.
+  
++ Eliminate the Least Important Feature: The least important feature is removed.
+  
++ Repeat: The model is retrained on the remaining features, and the process repeats until the desired number of features remains.
+</details>
 
 ```python
 from sklearn.svm import SVC
@@ -738,6 +864,11 @@ rfe = RFE(estimator=svm)  # Select top 5 features n_features_to_select=5
 rfe.fit(X_train, y_train)
 svm_rfe_features = np.where(rfe.support_)[0]
 ```
+<details>
+  
+  **Elastic Net**
+  Elastic Net is a regularization technique that combines two common regularization methods: L1 (Lasso) and L2 (Ridge) regularization. It is advantageous when you have a dataset with many correlated features, as it balances the strengths of Lasso (which can produce sparse solutions by setting some coefficients to zero) and Ridge (which tends to shrink coefficients without setting them to zero).
+</details>
 
 ```python
 # Elastic Net Regression
