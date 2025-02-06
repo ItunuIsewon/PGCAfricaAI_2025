@@ -1,5 +1,6 @@
 # Practical Session 1 – Hands-On Workshop (Machine Learning)
 
+
 ## Dataset Overview
 The following data is a synthetic data containing the the following columns:
 
