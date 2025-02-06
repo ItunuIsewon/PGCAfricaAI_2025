@@ -210,17 +210,29 @@ for i, variance in enumerate(cumulative_variance, start=1):
   **Output:**
 
 Principal Component 1: 0.2614
+
 Principal Component 2: 0.5016
+
 Principal Component 3: 0.6112
+
 Principal Component 4: 0.6920
+
 Principal Component 5: 0.7710
+
 Principal Component 6: 0.8368
+
 Principal Component 7: 0.8952
+
 Principal Component 8: 0.9440
+
 Principal Component 9: 0.9902
+
 Principal Component 10: 0.9971
+
 Principal Component 11: 0.9994
+
 Principal Component 12: 0.9999
+
 Principal Component 13: 1.0000
 
 </details>
@@ -418,8 +430,11 @@ Identifies which features contribute the most to the formation of clusters.
 3. **Cluster Interpretation & Labeling**
 Instead of just numerical cluster labels (0, 1, 2…), profiles help describe each cluster in a meaningful way.
 **Example:**
+
 Cluster 0 → "Young & Healthy"
+
 Cluster 1 → "Elderly with High Blood Pressure"
+
 Cluster 2 → "Diabetic Patients"
 
 **Validating Clustering Results**
@@ -427,8 +442,9 @@ Helps assess if the clustering makes real-world sense.
 If clusters are too similar, adjust parameters (e.g., number of clusters, distance metric).
 
 **Business & Clinical Decision-Making**
-Helps researchers, or clinicians take targeted actions based on the cluster characteristics.
+Helps researchers or clinicians take targeted actions based on the cluster characteristics.
 **Example:** Tailored treatment plans for different patient clusters.
+
 </details>
 
 ```python
@@ -544,20 +560,26 @@ Can you identify unique patterns in the clusters based on these cluster profiles
   The clusters represent distinct health profiles, each associated with varying degrees of cardiovascular and metabolic risk. Here's how we can assess the risk for each cluster:
 
 **Cluster 0: Moderate Cardiovascular Risk, Balanced Cholesterol**
+
 Risk of:
+
 + **Metabolic Syndrome:** Borderline elevated BMI and moderate LDL cholesterol levels could indicate a risk of developing metabolic syndrome (a group of conditions like high blood pressure, high cholesterol, and high blood sugar).
 + **Cardiovascular Disease:** While blood pressure is normal, the individual still has a higher LDL cholesterol level, which can contribute to atherosclerosis (plaque buildup in the arteries).
 + **Type 2 Diabetes:** The borderline overweight status (BMI 25.7) may increase the risk for insulin resistance or developing type 2 diabetes.
 
 **Cluster 1: Higher Cholesterol and Blood Pressure, Possible Increased Risk**
+
 Risk of:
+
 + **Hypertension:** The elevated systolic and diastolic blood pressure (128/84 mmHg) puts individuals in this cluster at a higher risk of hypertension, which is a significant risk factor for stroke and heart disease.
 + **Cardiovascular Disease:** Elevated blood pressure combined with high LDL cholesterol can significantly increase the risk of atherosclerosis, which could lead to coronary artery disease, heart attacks, and strokes.
 + **Obesity-Related Conditions:** The increased waist-to-hip ratio (WHR of 0.96) suggests abdominal obesity, which is strongly linked to a higher risk of type 2 diabetes, non-alcoholic fatty liver disease (NAFLD), and metabolic syndrome.
 + **Type 2 Diabetes:** Abdominal fat and higher cholesterol levels may indicate insulin resistance, which could lead to type 2 diabetes.
 
 **Cluster 2: Similar to Cluster 1 with Slight Differences**
+
 Risk of:
+
 + **Hypertension and Cardiovascular Disease:** Elevated systolic and diastolic blood pressure (130/85 mmHg) combined with high LDL cholesterol levels puts individuals at increased risk for heart disease, stroke, and other cardiovascular events.
 + **Obesity-Related Conditions:** Even with a slightly lower WHR (compared to Cluster 1), this cluster still has a BMI over 25 and higher abdominal fat, placing them at risk for metabolic syndrome, type 2 diabetes, and fatty liver disease.
 + **Type 2 Diabetes:** The presence of elevated LDL cholesterol, slightly elevated blood pressure, and higher BMI suggests a heightened risk for insulin resistance and type 2 diabetes.
@@ -570,9 +592,13 @@ Risk of:
 + **Type 2 Diabetes:** The higher WHR indicates a higher risk of insulin resistance and type 2 diabetes, despite the relatively normal BMI and lipid levels.
 
 **Summary of Risks for Each Cluster:**
+
 **Cluster 0:** Moderate cardiovascular and metabolic risk due to BMI and LDL cholesterol. Risk of metabolic syndrome and type 2 diabetes.
+
 **Cluster 1:** High cardiovascular and metabolic risk due to high blood pressure, high LDL cholesterol, and abdominal obesity. Significant risk of heart disease, stroke, type 2 diabetes, and metabolic syndrome.
+
 **Cluster 2:** High cardiovascular and metabolic risk, similar to Cluster 1 but with slightly different lipid and blood pressure profiles. Elevated risk for hypertension, heart disease, and diabetes.
+
 **Cluster 3:** Moderate risk due to abdominal obesity (high WHR), despite normal cholesterol and blood pressure. Risk of cardiovascular disease, metabolic syndrome, and type 2 diabetes.
 
 </details>
@@ -790,22 +816,34 @@ print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
   1. **Model Accuracy:** 0.9072. This indicates that the model correctly classified 90.72% of all instances across the 4 classes. This is a strong result, but depending on the dataset and problem, you may want to focus more on precision, recall, and F1-scores (especially if the classes are imbalanced).
   2. **Classification Report:** The classification report gives a more detailed view of the model’s performance for each class.
   3. **Precision:** The percentage of correct positive predictions out of all positive predictions for that class.
+
 Class 0 (Precision: 98%): The model is very accurate when it predicts Class 0, with 98% of those predictions being correct.
+
 Class 1 (Precision: 100%): All predictions made for Class 1 are correct, indicating perfect precision for this class.
+
 Class 2 (Precision: 78%): The model has room for improvement here, as it occasionally misclassifies other classes as Class 2.
+
 Class 3 (Precision: 91%): Most predictions for Class 3 are correct, though there is still a small portion of incorrect predictions.
+
   4. **Recall:** The percentage of actual instances of each class that were correctly predicted.
+
 Class 0 (Recall: 95%): The model correctly identifies 95% of all actual Class 0 instances.
+
 Class 1 (Recall: 100%): The model never misses a Class 1 instance, showcasing perfect recall for this class.
+
 Class 2 (Recall: 90%): The model does a fairly good job of catching most Class 2 instances, missing 10%.
+
 Class 3 (Recall: 79%): While most Class 3 samples are identified correctly, there is a notable portion (21%) that the model fails to recognize as Class 3.
 
   5. **F1-Score**
 The harmonic mean of precision and recall, is useful when dealing with imbalanced classes or when you want a single metric that balances both.
 
 Class 0 (F1: 0.97): The high F1-score reflects the strong balance of precision and recall for Class 0.
+
 Class 1 (F1: 1.00): Perfect precision and recall lead to a perfect F1-score for Class 1.
+
 Class 2 (F1: 0.83): This moderate F1-score shows that while Class 2 performance is decent, it’s not as strong as Class 0 or Class 1.
+
 Class 3 (F1: 0.85): The model performs reasonably well but can still improve in identifying Class 3 accurately and consistently.
 
 **Confusion Matrix**
@@ -1033,14 +1071,18 @@ clinical_data['risk'] = np.where((clinical_data['BMI'] > 30) | (clinical_data['s
 BMI is a measure of body fat based on height and weight. It is used to categorize individuals into different weight groups, which can impact health risks. The categories are:
 
 **Underweight:** BMI < 18.5
+
 **Normal weight:** BMI 18.5 - 24.9
+
 **Overweight:** BMI 25 - 29.9
+
 **Obesity:** BMI ≥ 30
 
 
 High risk is typically associated with:
 
 **Overweight:** Increases the risk of conditions like type 2 diabetes, heart disease, and stroke.
+
 **Obesity:** Carries a significantly higher risk for cardiovascular diseases, hypertension, type 2 diabetes, and certain cancers.
 
 
@@ -1049,8 +1091,11 @@ Systolic BP measures the pressure in your arteries when your heart beats. Normal
 
 **BP categories:**
 Normal: < 120/80 mmHg
+
 Elevated: 120-129 systolic and < 80 diastolic
+
 Hypertension Stage 1: 130-139 systolic or 80-89 diastolic
+
 Hypertension Stage 2: ≥ 140 systolic or ≥ 90 diastolic
 
 **High risk is generally associated with:**
