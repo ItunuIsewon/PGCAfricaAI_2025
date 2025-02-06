@@ -108,7 +108,7 @@ clinical_data.loc[:, 'cohort'] = clinical_data['cohort'].map({'Ugandan': 0, 'Zul
 
   **Why Do We Standardize Data?**
   
-Standardization is a common preprocessing step in machine learning and data analysis. It involves scaling the data to have a specific mean and variance. Specifically, we aim to make the features have a mean of 0 and a standard deviation of 
+Standardization is a common preprocessing step in machine learning and data analysis. It involves scaling the data to have a specific mean and variance. Specifically, we aim to make the features have a mean of 0 and a standard deviation of 1.
 
 **The primary reasons for standardizing data are:**
 
