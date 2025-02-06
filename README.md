@@ -26,7 +26,7 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 |**Time**|**Agenda**|**Speakers**|
 |:---:|:---:|:---:
 8:00 AM - 8:30 AM| Registration| 
-8:45 AM - 9:00 AM| **Opening Remarks:** - Welcome Address and an overview of the day's activities| Dr. Conrad Iyegbe (Co-Chair PGC Africa)|
+8:45 AM - 9:00 AM| **Opening Remarks:** - Welcome Address and an overview of the day's activities| Dr. Conrad Iyegbe (Co-Chair, PGC Africa)|
 9:00 AM - 9:45 AM|**Plenary I:** General introduction to Machine Learning, Artificial Intelligence - Gain a foundational understanding of ML and AI and learn how these technologies are transforming biomedical research| Dr. Itunuoluwa Isewon (Senior Lecturer, Department of Computer and Information Sciences, Covenant University, Nigeria)|
 9:45 AM - 10:00 AM| **Q&A and Practical Examples:** - Engage in an interactive session where Dr. Isewon shares real-world applications and answers to your questions| Dr. Itunuoluwa Isewon|
 10:00 AM – 10:20 AM| Scheduled Break | |
