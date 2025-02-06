@@ -7,7 +7,13 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 
 ******
 ### 🌐 **Generative A.I Model to be used:** ChatGPT
+
+### 📥 **Data:** Download it [here](https://bit.ly/Practical2_Data)
+
 ## 🔧 Task 1: Exploring the Data
+ + Use ChatGPT to understand the structure and type of dataset that you have been provided with.
+ + Examine the first few rows and statistical summary using .head() and .describe().
+ + Use ChatGPT to generate Python codes to visualize the distribution of the target variable (diagnosis).
 
 <details>
   <summary>Prompts</summary>
@@ -23,6 +29,8 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 </details>
 
 ## 🔧 Task 2: Data Processing
++ Identify data processing steps you need to do to use the dataset for a machine learning tasks such as encoding categorical data.
++ Standardize the dataset’s features to ensure they are on the same scale. Use libraries such as Scikit-learn’s StandardScaler.
 
 <details>
   <summary>Prompts</summary>
@@ -37,6 +45,10 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 </details>
 
 ## 🔧 Task 3: Feature Selection
++ Ask ChatGPT how to choose the most relevant features for model training.
++ Use Lasso (L1 regularization) for feature selection.
++ Filter the dataset to include only the selected features.
+
 
 <details>
   <summary>Prompts</summary>
@@ -51,6 +63,11 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 
 ## 🔧 Task 4: Splitting the Dataset
 
+Before a machine learning model can make predictions, it must be trained on a set of data to learn an approximation function. 
+Use Scikit-learn’s train_test_split Function 
++ Split the dataset into training (70%) and testing (30%) sets.
++ Set the random_state to ensure reproducibility.
+
 <details>
   <summary>Prompts</summary>
 
@@ -63,6 +80,12 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 </details>
 
 ## 🔧 Task 5: Classification
+You will use the following machine learning models for prediction
++ [Logistic regression](https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression)
++ [Support vector machine](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC)
++ [Decision tree classifier](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier)
++ [Random Forest Classifier](https://scikit-learn.org/1.6/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+
 
 <details>
   <summary>Prompts</summary>
@@ -79,6 +102,7 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 </details>
 
 ## 🔧 Task 6: Clustering Task
+Clustering is a type of unsupervised learning technique used to group data points or objects based on their similarity. The goal of clustering is to identify inherent patterns or structures in the data without prior knowledge of true labels. Clustering algorithms partition the data into groups or clusters such that data points within the same cluster are more similar to each other than to those in other clusters.
 
 <details>
   <summary>Prompts</summary>
@@ -93,6 +117,7 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 </details>
 
 ## 🔧 Task 7: Getting Optimal Number of Clusters
+Determining the optimal number of clusters is essential for effective clustering analysis. A well-chosen number of clusters ensures that data points within a cluster are similar while maintaining clear distinctions between different clusters.
 
 <details>
   <summary>Prompts</summary>
