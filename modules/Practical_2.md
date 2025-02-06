@@ -29,7 +29,7 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
   - brca_matrix.csv provides high-dimensional gene expression signatures.
   - Combining them allows researchers to correlate clinical outcomes with genetic and molecular alterations.
 
-‼️**Note:** Ensure that the dataset is in your current working directory or you use its full path.
+‼️**Note:** Ensure that the dataset is in your current working directory or use its full path.
 
 ******
 
