@@ -9,6 +9,25 @@ This resource serves as a hands-on guide for leveraging AI-driven programming as
 ### 🌐 **Generative A.I Model to be used:** ChatGPT
 
 ### 📥 **Dataset:** Download the two files [here](https://bit.ly/Practical2_Data)
+### Dataset Overview
+
+📌 **coldata.csv (Clinical & Metadata)**
+
++ Contains patient-level clinical, demographic, and molecular subtype data.
++ Key columns include tumor characteristics, staging, follow-up details, survival status, and molecular classifications (e.g., PAM50 subtypes).
++ The paper_BRCA_Subtype_PAM50 column provides breast cancer molecular subtypes, crucial for stratifying patients in research.
+  
+📌 **brca_matrix.csv (Gene-Level Data)**
++ Contains gene expression data for the same patients.
++ Each row represents a patient, and each column represents a gene
+
+**How These Datasets Are Connected**
+
++ Common Identifier: Both datasets can be linked using a patient barcode or ID, ensuring that clinical information aligns with molecular profiles.
++ Integration Purpose:
+  - coldata.csv provides patient metadata, clinical outcomes, and molecular subtypes.
+  - brca_matrix.csv provides high-dimensional gene expression signatures.
+  - Combining them allows researchers to correlate clinical outcomes with genetic and molecular alterations.
 
 ## 🔧 Task 1: Exploring the Data
  + Use ChatGPT to understand the structure and type of the datasets (the two files) that you have been provided with.
