@@ -13,6 +13,9 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 ## Trainers
 <img src="Images/trainers new collage.png" alt="Alt text" width="500">
 
+## Invited Speaker
+<img src="Images/Dr Raquel pic.png" alt="Alt text" width="500">
+
 ## Teaching Assistants
 <img src="Images/Teaching Assts New.png" alt="Alt text" width="500">
 
@@ -40,17 +43,17 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 
 ******
 ## Course Module
-+ **Pre-Course**
+**Pre-Course**
 
 [Pre-Course Analysis](modules/PreCourse.md)
 
-+ **Practical Session 1**
+**Practical Session 1**
 
 [Machine Learning](modules/Practical_1.md)
 
+**Practical Session 2**
 
-
-
+[Hands-on Tasks on Generative A.I model](modules/Practical_2.md)
 
 ******
 ## License
