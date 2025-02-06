@@ -132,17 +132,16 @@ Determining the optimal number of clusters is essential for effective clustering
 </details>
 
 ## 🔧 Task 8: Deep Learning
-
+Deep learning is a subset of machine learning that uses artificial neural networks with multiple layers to automatically learn patterns from data. It extracts complex features without manual intervention. Unlike traditional machine learning, which relies on handcrafted features and structured data, deep learning can handle unstructured data like images and text, learning hierarchical representations through deep networks. 
 <details>
   <summary>Prompts</summary>
 
-  - **Prompt 1: 💭** "What is deep learning, and how is it different from traditional machine learning?"
-  - **Prompt 2: 💭** "What is a multi-layer perceptron (MLP), and how does it work for binary classification?"
-  - **Prompt 3: 💭** "Which Python libraries should I use to build a deep learning model?"
-  - **Prompt 4: 💭** "How do I define an MLP architecture using Keras?"
-  - **Prompt 5: 💭** "How do I split my data for training and validation in deep learning?"
-  - **Prompt 6: 💭** "Can you generate a Python script to train an MLP model with a validation split of 20%, 100 epochs, and batch size of 32?"
-  - **Prompt 7: 💭** "How do I evaluate my deep learning model using a classification report?"
-  - **Prompt 8: 💭** "How can I tune my model’s hyperparameters using Grid Search?"
+  - **Prompt 1: 💭** "What is a multi-layer perceptron (MLP), and how does it work for binary classification?"
+  - **Prompt 2: 💭** "Which Python libraries should I use to build a deep learning model?"
+  - **Prompt 3: 💭** "How do I define an MLP architecture using Keras?"
+  - **Prompt 4: 💭** "How do I split my data for training and validation in deep learning?"
+  - **Prompt 5: 💭** "Can you generate a Python script to train an MLP model with a validation split of 20%, 100 epochs, and batch size of 32?"
+  - **Prompt 6: 💭** "How do I evaluate my deep learning model using a classification report?"
+  - **Prompt 7: 💭** "How can I tune my model’s hyperparameters using Grid Search?"
 
 </details>
