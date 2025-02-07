@@ -1133,7 +1133,7 @@ classes = np.unique(y_pred)
 
 ```python
 #pip install shap
-#!pip install numba==0.52.0rc2
+#pip install numba==0.52.0rc2
 ```
 
 <details>
