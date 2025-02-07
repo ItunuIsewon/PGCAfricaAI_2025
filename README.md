@@ -49,6 +49,7 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 [Pre-Course Analysis](modules/PreCourse.md)
 
 **Workshop Introduction**
+
 [Introduction](modules/Workshop_Introduction.pdf)
 
 **Practical Session 1**
