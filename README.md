@@ -52,6 +52,10 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 
 [Introduction](modules/Workshop_Introduction.pdf)
 
+**Introduction to Machine Learning & Artificial Intelligence**
+
+[Introduction to A.I](modules/Introduction_To_AI_PGCAfrica_AIWorkshop.pdf)
+
 **Practical Session 1**
 
 [Machine Learning](modules/Practical_1.md)
