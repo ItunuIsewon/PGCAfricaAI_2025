@@ -1132,8 +1132,9 @@ classes = np.unique(y_pred)
 ❓ How does the new result compare to the result before hyperparameter tuning
 
 ```python
-#pip install shap
-#pip install numba==0.52.0rc2
+pip install shap
+
+!pip install numba==0.61.0
 ```
 
 <details>
