@@ -1,5 +1,6 @@
 # PGC Africa AI Workshop
 
+# Workshop Title: Artificial Intelligence in Human Genetics
 
 <img src="Images/Logo collage.png" alt="Alt text" width="500">
 
