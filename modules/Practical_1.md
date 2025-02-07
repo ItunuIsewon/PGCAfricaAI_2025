@@ -585,7 +585,7 @@ cluster_profile_categorical['WHR_category'] = cluster_profile_categorical['WHR']
 # Optional: Convert cohort to categorical (Zulu or Ugandan)
 cluster_profile_categorical['cohort'] = cluster_profile_categorical['cohort'].map({0.0: 'Zulu', 1.0: 'Ugandan'})
 # Example: If 'sex' is 0 for Male and 1 for Female, convert it to "Male" and "Female"
-cluster_profile_categorical['sex'] = cluster_profile_categorical['sex'].map({0: 'Male', 1: 'Female'})
+cluster_profile_categorical['sex'] = cluster_profile_categorical['sex'].map({1: 'Male', 0: 'Female'})
 # Display the updated DataFrame with categories
 cluster_profile_categorical[['age', 'sex', 'cohort', 'BMI_category', 'systolic_BP_category', 
           'diastolic_BP_category', 'LDL_category', 'HDL_category', 'WHR_category']]
