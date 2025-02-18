@@ -58,7 +58,9 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 
 **Practical Session 1**
 
-[Machine Learning](modules/Practical_1.md)
+[Machine Learning - Python Version](modules/Practical_1.md)
+
+[Machine Learning - R Version](modules/Practical_1_R_Version.md)
 
 **Practical Session 2**
 
