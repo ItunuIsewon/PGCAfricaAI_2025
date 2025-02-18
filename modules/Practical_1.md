@@ -1,4 +1,4 @@
-# Practical Session 1 – Hands-On Workshop (Machine Learning)
+# Practical Session 1 – Hands-On Workshop (Machine Learning) - Python Version
 
 ### 📥 **Dataset:** Download the file [here](https://drive.google.com/drive/folders/1o_KLnkfJ-3nSStfaCQHdAQHJa2L9v3kY?usp=drive_link)
 
