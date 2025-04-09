@@ -56,6 +56,12 @@ PGC Africa will be facilitating an A.I workshop during the 15th African Society 
 
 [Introduction to A.I](modules/Introduction_To_AI_PGCAfrica_AIWorkshop.pdf)
 
+**Dr Raquel Iniesta's Virtual Talks**
+
++ [Integrating multimodal data with AI for targeted treatment in depression and hypertension](modules/Integrating_multimodal_data_with_AI.pdf) 
+
++ [Ethical considerations in AI Adoption in Human Genetics research](modules/Ethical_considerations_in_AI.pdf)
+
 **Practical Session 1**
 
 [Machine Learning - Python Version](modules/Practical_1.md)
